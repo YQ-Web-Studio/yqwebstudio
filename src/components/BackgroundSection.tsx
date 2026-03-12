@@ -16,7 +16,7 @@ import { InteractiveGlassCard } from "@/components/InteractiveGlassCard";
 const TelemetryTypewriter = ({ text }: { text: string }) => {
   const [displayedText, setDisplayedText] = useState("");
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "50px" }); // Trigger BEFORE entering viewport
 
   useEffect(() => {
     if (!isInView) return;
@@ -185,7 +185,7 @@ const BackgroundSection = () => {
         variants={isMobile ? portraitVariants : {}}
         initial={isMobile ? "grayscale" : { opacity: 0, filter: "blur(16px)", scale: 1.05 }}
         whileInView={isMobile ? "colorize" : { opacity: 1, filter: "blur(0px)", scale: 1 }}
-        viewport={isMobile ? { once: false, amount: "all", margin: "0px 0px -10% 0px" } : { once: true, amount: 0.3 }}
+        viewport={isMobile ? { once: false, amount: 0.7, margin: "0px 0px -10% 0px" } : { once: true, amount: 0.1 }}
         transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
       >
         <Image
@@ -318,7 +318,7 @@ const BackgroundSection = () => {
 
         {/* ── Bottom Row: The Arsenal Slab ── */}
         <div className="w-full mt-10 md:mt-20 relative z-10 pointer-events-auto px-6 md:px-0">
-          <InteractiveGlassCard delay={0.2} className="bg-zinc-900/40 rounded-[2rem] md:rounded-[2.5rem] py-10 px-6 sm:px-8 md:p-12">
+          <InteractiveGlassCard disableTilt={isMobile} delay={0.2} className="bg-zinc-900/40 rounded-[2rem] md:rounded-[2.5rem] py-10 px-6 sm:px-8 md:p-12">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10">
               <div>
                 <h3 className="text-3xl font-bold tracking-tight text-zinc-50">The Arsenal</h3>

@@ -1,0 +1,93 @@
+{
+  "[project]/src/components/MobileFlyoutMenu.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/MobileFlyoutMenu.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_b025d28e._.js",
+      "static/chunks/src_components_MobileFlyoutMenu_tsx_7baa5b5c._.js"
+    ]
+  },
+  "[project]/src/components/DesktopPortfolioDropdown.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/DesktopPortfolioDropdown.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_3b066747._.js",
+      "static/chunks/src_components_DesktopPortfolioDropdown_tsx_7baa5b5c._.js"
+    ]
+  },
+  "[project]/src/components/ContactDrawerContent.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/ContactDrawerContent.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_4245cfeb._.js",
+      "static/chunks/src_components_ContactDrawerContent_tsx_7baa5b5c._.js"
+    ]
+  },
+  "[project]/src/components/ui/toaster.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/ui/toaster.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_6981bc22._.js",
+      "static/chunks/src_38032d2f._.js",
+      "static/chunks/src_components_ui_toaster_tsx_7baa5b5c._.js"
+    ]
+  },
+  "[project]/src/components/ui/sonner.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/ui/sonner.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_19e902cc._.js",
+      "static/chunks/src_components_ui_sonner_tsx_8a59b684._.js"
+    ]
+  },
+  "[project]/src/components/HeroInteractions.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/HeroInteractions.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_HeroInteractions_tsx_f55dbeca._.js",
+      "static/chunks/src_components_HeroInteractions_tsx_0b8777fe._.js"
+    ]
+  },
+  "[project]/src/components/ServicesSection.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/ServicesSection.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_f5048121._.js",
+      "static/chunks/src_91817920._.js",
+      "static/chunks/src_components_ServicesSection_tsx_0b8777fe._.js"
+    ]
+  },
+  "[project]/src/components/BackgroundSection.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/BackgroundSection.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_next_71e330a9._.js",
+      "static/chunks/node_modules_react-icons_si_index_mjs_86623806._.js",
+      "static/chunks/node_modules_react-icons_lib_844c6c50._.js",
+      "static/chunks/node_modules_cab97df4._.js",
+      "static/chunks/src_26b8e002._.js",
+      "static/chunks/src_components_BackgroundSection_tsx_0b8777fe._.js"
+    ]
+  },
+  "[project]/src/components/WorkSection.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/WorkSection.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_react-icons_si_index_mjs_86623806._.js",
+      "static/chunks/node_modules_react-icons_lib_844c6c50._.js",
+      "static/chunks/node_modules_next_71e330a9._.js",
+      "static/chunks/node_modules_lucide-react_dist_esm_icons_884026d5._.js",
+      "static/chunks/src_components_8d10b811._.js",
+      "static/chunks/src_components_WorkSection_tsx_0b8777fe._.js"
+    ]
+  },
+  "[project]/src/components/LabsSection.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/LabsSection.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_next_71e330a9._.js",
+      "static/chunks/node_modules_react-icons_si_index_mjs_86623806._.js",
+      "static/chunks/node_modules_react-icons_lib_844c6c50._.js",
+      "static/chunks/node_modules_cce8265b._.js",
+      "static/chunks/src_components_LabsSection_tsx_eefea494._.js",
+      "static/chunks/src_components_LabsSection_tsx_0b8777fe._.js"
+    ]
+  },
+  "[project]/src/components/Footer.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/Footer.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_Footer_tsx_2dd510e6._.js",
+      "static/chunks/src_components_Footer_tsx_0b8777fe._.js"
+    ]
+  }
+}

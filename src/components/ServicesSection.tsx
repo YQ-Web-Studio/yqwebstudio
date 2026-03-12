@@ -1,0 +1,211 @@
+"use client";
+
+import { motion, useInView } from "framer-motion";
+import { Code, Shield } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { InteractiveGlassCard } from "@/components/InteractiveGlassCard";
+
+const services = [
+  {
+    icon: Code,
+    title: "Bespoke Web Design",
+    features: [
+      "Custom functionality & integrations",
+      "Next.js-powered frontends",
+      "Fully responsive design",
+      "SEO optimisation & performance",
+      "CMS integration",
+    ],
+    price: "Custom Quote",
+    highlight: false,
+  },
+  {
+    icon: Shield,
+    title: "The Website Care Plan",
+    features: [
+      "Premium managed hosting",
+      "SSL certificate & security",
+      "Monthly content updates",
+      "Performance monitoring",
+      "Priority support",
+    ],
+    price: "from £30 / month",
+    highlight: true,
+  },
+];
+
+const TelemetryTypewriter = ({ text }: { text: string }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i <= text.length) {
+        setDisplayedText(text.slice(0, i));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 30);
+    return () => clearInterval(interval);
+  }, [isInView, text]);
+
+  return (
+    <div ref={ref} className="mt-2 min-h-[5rem]">
+      <div className="text-[10px] font-mono text-primary mb-3 uppercase tracking-widest flex items-center gap-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /> Live Feed
+      </div>
+      <p className="text-sm text-muted-foreground font-mono leading-relaxed">
+        {displayedText}
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ repeat: Infinity, duration: 0.8 }}
+          className="inline-block w-1.5 h-3.5 ml-1 bg-primary align-middle"
+        />
+      </p>
+    </div>
+  );
+};
+
+const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
+  return (
+    <InteractiveGlassCard delay={index * 0.1} className="p-8 flex flex-col justify-between">
+      <div className="flex flex-col h-full">
+        <service.icon className="w-8 h-8 text-primary mb-6" />
+        <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4">{service.title}</h3>
+        <div className="flex-grow">
+          <TelemetryTypewriter text={service.features.join(" // ")} />
+        </div>
+        <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
+          {service.price}
+        </p>
+      </div>
+    </InteractiveGlassCard>
+  );
+};
+
+const ServicesSection = () => {
+  const [cards, setCards] = useState(services);
+
+  const handleDragEnd = (_: unknown, info: { offset: { x: number } }) => {
+    if (Math.abs(info.offset.x) > 60) {
+      setCards((prev) => {
+        const next = [...prev];
+        const [first] = next.splice(0, 1);
+        next.push(first);
+        return next;
+      });
+    }
+  };
+
+  return (
+    <section id="services" className="py-16 md:py-24">
+      <div className="container mx-auto max-w-6xl px-6">
+        <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
+          01 // Services &amp; Plans
+        </p>
+        <div className="overflow-hidden mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow"
+          >
+            What we build.
+          </motion.h2>
+        </div>
+
+        <div className="px-0 md:px-0">
+          {/* ── Desktop Grid (md+) ── */}
+          <div className="hidden md:grid md:grid-cols-2 gap-6">
+            {services.map((service, index) => (
+              <ServiceCard key={service.title} service={service} index={index} />
+            ))}
+          </div>
+
+          {/* ── Mobile Swipeable Stack (< md) ── */}
+          <div className="relative md:hidden" style={{ height: 480 }}>
+            <p className="absolute -top-8 left-0 right-0 text-center text-xs text-zinc-400 font-mono uppercase tracking-widest select-none pointer-events-none">
+              swipe to explore →
+            </p>
+            {cards.map((service, i) => {
+              const isActive = i === 0;
+              return (
+                <motion.div
+                  key={service.title}
+                  className="absolute w-full bg-zinc-950/80 backdrop-blur-2xl rounded-2xl border border-zinc-800 overflow-hidden"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: cards.length - i,
+                  }}
+                  animate={{
+                    x: 0,
+                    scale: 1 - i * 0.05,
+                    y: i * 18,
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  drag={isActive ? "x" : false}
+                  dragSnapToOrigin={false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.8}
+                  onDragEnd={isActive ? handleDragEnd : undefined}
+                >
+                  <div 
+                    className="absolute inset-0 bg-black pointer-events-none transition-opacity duration-300 z-0"
+                    style={{ opacity: isActive ? 0 : 0.4 }}
+                  />
+                  <div className="relative z-10 p-8 flex flex-col justify-between min-h-[440px] cursor-grab active:cursor-grabbing select-none w-full h-full">
+                    <div>
+                      <service.icon className="w-8 h-8 text-primary mb-6" />
+                      <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4">
+                        {service.title}
+                      </h3>
+                      <div className="text-[10px] font-mono text-primary mb-3 uppercase tracking-widest flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /> Live Feed
+                      </div>
+                      <p className="text-sm text-muted-foreground font-mono leading-relaxed">
+                        {service.features.join(" // ")}
+                      </p>
+                    </div>
+                    <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
+                      {service.price}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* ── Mobile Stack Pagination Indicators ── */}
+          <div className="flex md:hidden justify-center items-center gap-2 mt-8">
+            {services.map((service, index) => {
+              // The active card is whichever one is currently the first in the `cards` array
+              const isActive = cards[0].title === service.title;
+              return (
+                <motion.div
+                  key={`indicator-${service.title}`}
+                  animate={{
+                    scale: isActive ? 1.2 : 1,
+                  }}
+                  className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                    isActive ? "bg-purple-500" : "bg-zinc-700"
+                  }`}
+                />
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export default ServicesSection;

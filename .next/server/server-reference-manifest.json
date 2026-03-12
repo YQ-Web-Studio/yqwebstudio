@@ -1,0 +1,28 @@
+{
+  "node": {
+    "402214f8c12f991ba9c4537ff0456438a4b380b621": {
+      "workers": {
+        "app/_not-found/page": {
+          "moduleId": 54652,
+          "async": false,
+          "exportedName": "sendContactEmail",
+          "filename": "app/actions/sendEmail.ts"
+        },
+        "app/page": {
+          "moduleId": 43122,
+          "async": false,
+          "exportedName": "sendContactEmail",
+          "filename": "app/actions/sendEmail.ts"
+        }
+      },
+      "layer": {
+        "app/_not-found/page": "action-browser",
+        "app/page": "action-browser"
+      },
+      "filename": "app/actions/sendEmail.ts",
+      "exportedName": "sendContactEmail"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "0aL7Lf3IlxV/haM6O+4LQDSDtf+AI27krSshaLr78uA="
+}

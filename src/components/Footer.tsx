@@ -1,0 +1,97 @@
+"use client";
+
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useContact } from "@/context/ContactContext";
+import { useRef } from "react";
+
+const MagneticFooterButton = ({ onClick, children }: { onClick: () => void, children: React.ReactNode }) => {
+  const ref = useRef<HTMLButtonElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const { clientX, clientY } = e;
+    if (!ref.current) return;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    x.set(middleX * 0.2);
+    y.set(middleY * 0.2);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      onClick={onClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={{ scale: 1.03 }}
+      transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.4 }}
+      style={{ x: springX, y: springY }}
+      className="relative overflow-hidden group inline-flex items-center justify-center px-10 py-5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-medium text-lg transition-colors"
+    >
+      {/* Sliding background layer */}
+      <span className="absolute inset-0 bg-purple-600 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0" />
+      <span className="relative z-10 flex items-center gap-3">
+        {children}
+        <motion.span 
+          animate={{ x: [0, 5, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+        >
+          →
+        </motion.span>
+      </span>
+    </motion.button>
+  );
+};
+
+const Footer = () => {
+  const { openContact } = useContact();
+  return (
+    <motion.footer
+      initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="pt-8 pb-32 md:py-24 border-t border-border/50"
+    >
+      <div className="container mx-auto max-w-6xl px-6">
+        <div className="overflow-visible mb-4 md:mb-12 w-full flex flex-col items-center text-center md:items-start md:text-left">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-4xl xs:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-50 heading-glow px-4 md:px-16 py-4 md:py-8 md:-ml-16 w-full md:w-fit flex flex-col items-center md:items-start text-center md:text-left"
+          >
+            <span className="block whitespace-nowrap">Ready to digitalise</span>
+            <span className="text-gradient font-serif italic font-normal block mt-2 whitespace-nowrap px-6 md:pl-0 md:pr-12 pb-4">your business?</span>
+          </motion.h2>
+        </div>
+        
+        <div className="mt-2 md:mt-8 flex justify-center md:justify-start">
+          <MagneticFooterButton onClick={openContact}>
+            Start a Project
+          </MagneticFooterButton>
+        </div>
+
+        <div className="mt-20 flex justify-center w-full">
+          <p className="text-sm text-muted-foreground text-center">
+            © {new Date().getFullYear()} YQ Web Studio. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </motion.footer>
+  );
+};
+
+export default Footer;

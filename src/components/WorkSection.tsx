@@ -16,15 +16,10 @@ const MagneticLinkButton = ({ children, href, className }: { children: React.Rea
   const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
-  const rectRef = useRef<DOMRect | null>(null);
-  const handleMouseEnter = () => {
-    if (!ref.current) return;
-    rectRef.current = ref.current.getBoundingClientRect();
-  };
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!rectRef.current) return;
+    if (!ref.current) return;
     const { clientX, clientY } = e;
-    const { height, width, left, top } = rectRef.current;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
     x.set((clientX - (left + width / 2)) * 0.2);
     y.set((clientY - (top + height / 2)) * 0.2);
   };
@@ -51,15 +46,10 @@ const MagneticActionButton = ({ children, onClick, className }: { children: Reac
   const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
-  const rectRef = useRef<DOMRect | null>(null);
-  const handleMouseEnter = () => {
-    if (!ref.current) return;
-    rectRef.current = ref.current.getBoundingClientRect();
-  };
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!rectRef.current) return;
+    if (!ref.current) return;
     const { clientX, clientY } = e;
-    const { height, width, left, top } = rectRef.current;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
     x.set((clientX - (left + width / 2)) * 0.2);
     y.set((clientY - (top + height / 2)) * 0.2);
   };

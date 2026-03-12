@@ -29,29 +29,18 @@ const services = [
       "Performance monitoring",
       "Priority support",
     ],
-    price: "from £20 / month",
+    price: "from £30 / month",
     highlight: true,
   },
 ];
 
-const TelemetryTypewriter = ({ text, skipAnimation = false, isActive = false }: { text: string; skipAnimation?: boolean; isActive?: boolean }) => {
+const TelemetryTypewriter = ({ text }: { text: string }) => {
   const [displayedText, setDisplayedText] = useState("");
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "100px" });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    if (skipAnimation) {
-      setDisplayedText(text);
-      return;
-    }
-    
-    if (!isActive) {
-      setDisplayedText("");
-      return;
-    }
-
     if (!isInView) return;
-
     let i = 0;
     const interval = setInterval(() => {
       if (i <= text.length) {
@@ -62,7 +51,7 @@ const TelemetryTypewriter = ({ text, skipAnimation = false, isActive = false }: 
       }
     }, 30);
     return () => clearInterval(interval);
-  }, [isInView, text, skipAnimation, isActive]);
+  }, [isInView, text]);
 
   return (
     <div ref={ref} className="mt-2 min-h-[5rem]">
@@ -71,13 +60,11 @@ const TelemetryTypewriter = ({ text, skipAnimation = false, isActive = false }: 
       </div>
       <p className="text-sm text-muted-foreground font-mono leading-relaxed">
         {displayedText}
-        {isActive && !skipAnimation && displayedText.length < text.length && (
-          <motion.span
-            animate={{ opacity: [1, 0] }}
-            transition={{ repeat: Infinity, duration: 0.8 }}
-            className="inline-block w-1.5 h-3.5 ml-1 bg-primary align-middle"
-          />
-        )}
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ repeat: Infinity, duration: 0.8 }}
+          className="inline-block w-1.5 h-3.5 ml-1 bg-primary align-middle"
+        />
       </p>
     </div>
   );
@@ -90,7 +77,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         <service.icon className="w-8 h-8 text-primary mb-6" />
         <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4">{service.title}</h3>
         <div className="flex-grow">
-          <TelemetryTypewriter text={service.features.join(" // ")} isActive={true} />
+          <TelemetryTypewriter text={service.features.join(" // ")} />
         </div>
         <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
           {service.price}
@@ -101,23 +88,21 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
 };
 
 const ServicesSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [typedServices, setTypedServices] = useState<Set<string>>(new Set());
+  const [cards, setCards] = useState(services);
 
   const handleDragEnd = (_: unknown, info: { offset: { x: number } }) => {
     if (Math.abs(info.offset.x) > 60) {
-      setTypedServices((prevSet) => {
-        const newSet = new Set(prevSet);
-        newSet.add(services[currentIndex].title);
-        return newSet;
+      setCards((prev) => {
+        const next = [...prev];
+        const [first] = next.splice(0, 1);
+        next.push(first);
+        return next;
       });
-      
-      setCurrentIndex((prev) => (prev + 1) % services.length);
     }
   };
 
   return (
-    <section id="services" className="py-16 md:py-24 overflow-hidden">
+    <section id="services" className="py-16 md:py-24">
       <div className="container mx-auto max-w-6xl px-6">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           01 // Services &amp; Plans
@@ -126,15 +111,15 @@ const ServicesSection = () => {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow"
           >
-            Built for Growth.
+            What we build.
           </motion.h2>
         </div>
 
-        <div className="w-full">
+        <div className="px-0 md:px-0">
           {/* ── Desktop Grid (md+) ── */}
           <div className="hidden md:grid md:grid-cols-2 gap-6">
             {services.map((service, index) => (
@@ -143,74 +128,66 @@ const ServicesSection = () => {
           </div>
 
           {/* ── Mobile Swipeable Stack (< md) ── */}
-          <div className="relative md:hidden mx-auto max-w-[calc(100vw-80px)] my-4" style={{ height: 500 }}>
-            <p className="absolute -top-10 left-0 right-0 text-center text-xs text-zinc-400 font-mono uppercase tracking-widest select-none pointer-events-none mb-12">
+          <div className="relative md:hidden" style={{ height: 480 }}>
+            <p className="absolute -top-8 left-0 right-0 text-center text-xs text-zinc-400 font-mono uppercase tracking-widest select-none pointer-events-none">
               swipe to explore →
             </p>
-            {services.map((service, i) => {
-              let relIndex = i - currentIndex;
-              if (relIndex < 0) relIndex += services.length;
-              
-              const isFront = relIndex === 0;
-              const hasBeenTyped = typedServices.has(service.title);
-              
+            {cards.map((service, i) => {
+              const isActive = i === 0;
               return (
                 <motion.div
                   key={service.title}
-                  className="absolute inset-x-0 w-full h-full"
+                  className="absolute w-full bg-zinc-950/80 backdrop-blur-2xl rounded-2xl border border-zinc-800 overflow-hidden"
                   style={{
-                    zIndex: services.length - relIndex,
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: cards.length - i,
                   }}
                   animate={{
                     x: 0,
-                    scale: 1 - relIndex * 0.05,
-                    y: relIndex * 20, 
-                    opacity: isFront ? 1 : 0.6,
+                    scale: 1 - i * 0.05,
+                    y: i * 18,
                   }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 400, 
-                    damping: 30,
-                  }}
-                  drag={isFront ? "x" : false}
-                  dragSnapToOrigin={true} 
-                  dragMomentum={false} 
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  drag={isActive ? "x" : false}
+                  dragSnapToOrigin={false}
                   dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.5}
-                  whileDrag={{ scale: 1.05 }}
-                  whileTap={{ cursor: "grabbing" }}
-                  onDragEnd={isFront ? handleDragEnd : undefined}
+                  dragElastic={0.8}
+                  onDragEnd={isActive ? handleDragEnd : undefined}
                 >
-                  <InteractiveGlassCard 
-                    disableTilt={true} 
-                    className="flex flex-col justify-between h-full bg-zinc-950/90 backdrop-blur-2xl cursor-grab active:cursor-grabbing select-none shadow-2xl"
-                  >
-                    <div className="p-8 flex flex-col h-full">
+                  <div 
+                    className="absolute inset-0 bg-black pointer-events-none transition-opacity duration-300 z-0"
+                    style={{ opacity: isActive ? 0 : 0.4 }}
+                  />
+                  <div className="relative z-10 p-8 flex flex-col justify-between min-h-[440px] cursor-grab active:cursor-grabbing select-none w-full h-full">
+                    <div>
                       <service.icon className="w-8 h-8 text-primary mb-6" />
                       <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4">
                         {service.title}
                       </h3>
-                      <div className="flex-grow">
-                        <TelemetryTypewriter 
-                          text={service.features.join(" // ")} 
-                          isActive={isFront}
-                          skipAnimation={hasBeenTyped}
-                        />
+                      <div className="text-[10px] font-mono text-primary mb-3 uppercase tracking-widest flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /> Live Feed
                       </div>
-                      <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
-                        {service.price}
+                      <p className="text-sm text-muted-foreground font-mono leading-relaxed">
+                        {service.features.join(" // ")}
                       </p>
                     </div>
-                  </InteractiveGlassCard>
+                    <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
+                      {service.price}
+                    </p>
+                  </div>
                 </motion.div>
               );
             })}
           </div>
 
           {/* ── Mobile Stack Pagination Indicators ── */}
-          <div className="flex md:hidden justify-center items-center gap-2 mt-12">
+          <div className="flex md:hidden justify-center items-center gap-2 mt-8">
             {services.map((service, index) => {
-              const isActive = index === currentIndex;
+              // The active card is whichever one is currently the first in the `cards` array
+              const isActive = cards[0].title === service.title;
               return (
                 <motion.div
                   key={`indicator-${service.title}`}
@@ -225,6 +202,7 @@ const ServicesSection = () => {
             })}
           </div>
         </div>
+
       </div>
     </section>
   );

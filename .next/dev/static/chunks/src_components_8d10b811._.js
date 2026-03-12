@@ -8,7 +8,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react-dom/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
@@ -24,11 +24,18 @@ var _s = __turbopack_context__.k.signature();
 const GalleryOverlay = ({ images, isOpen, onClose })=>{
     _s();
     const [currentIndex, setCurrentIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
-    // Reset index when opening
+    const [direction, setDirection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "GalleryOverlay.useEffect": ()=>{
+            setMounted(true);
+        }
+    }["GalleryOverlay.useEffect"], []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "GalleryOverlay.useEffect": ()=>{
             if (isOpen) {
                 setCurrentIndex(0);
+                setDirection(0);
             }
         }
     }["GalleryOverlay.useEffect"], [
@@ -37,6 +44,7 @@ const GalleryOverlay = ({ images, isOpen, onClose })=>{
     const handleNext = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "GalleryOverlay.useCallback[handleNext]": (e)=>{
             e?.stopPropagation();
+            setDirection(1);
             setCurrentIndex({
                 "GalleryOverlay.useCallback[handleNext]": (prev)=>prev === images.length - 1 ? 0 : prev + 1
             }["GalleryOverlay.useCallback[handleNext]"]);
@@ -47,6 +55,7 @@ const GalleryOverlay = ({ images, isOpen, onClose })=>{
     const handlePrev = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "GalleryOverlay.useCallback[handlePrev]": (e)=>{
             e?.stopPropagation();
+            setDirection(-1);
             setCurrentIndex({
                 "GalleryOverlay.useCallback[handlePrev]": (prev)=>prev === 0 ? images.length - 1 : prev - 1
             }["GalleryOverlay.useCallback[handlePrev]"]);
@@ -54,7 +63,6 @@ const GalleryOverlay = ({ images, isOpen, onClose })=>{
     }["GalleryOverlay.useCallback[handlePrev]"], [
         images.length
     ]);
-    // Keyboard navigation
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "GalleryOverlay.useEffect": ()=>{
             if (!isOpen) return;
@@ -76,7 +84,6 @@ const GalleryOverlay = ({ images, isOpen, onClose })=>{
         handleNext,
         handlePrev
     ]);
-    // Lock body scroll when open
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "GalleryOverlay.useEffect": ()=>{
             if (isOpen) {
@@ -93,7 +100,44 @@ const GalleryOverlay = ({ images, isOpen, onClose })=>{
     }["GalleryOverlay.useEffect"], [
         isOpen
     ]);
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
+    const dragVariant = {
+        initial: (dir)=>({
+                x: dir > 0 ? 300 : dir < 0 ? -300 : 0,
+                opacity: 0,
+                scale: 0.95
+            }),
+        animate: {
+            x: 0,
+            opacity: 1,
+            scale: 1,
+            transition: {
+                x: {
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30
+                },
+                opacity: {
+                    duration: 0.2
+                }
+            }
+        },
+        exit: (dir)=>({
+                x: dir < 0 ? 300 : dir > 0 ? -300 : 0,
+                opacity: 0,
+                scale: 1.05,
+                transition: {
+                    x: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30
+                    },
+                    opacity: {
+                        duration: 0.2
+                    }
+                }
+            })
+    };
+    const overlayContent = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
         children: isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
             initial: {
                 opacity: 0
@@ -108,14 +152,15 @@ const GalleryOverlay = ({ images, isOpen, onClose })=>{
                 duration: 0.3,
                 ease: "easeInOut"
             },
-            className: "fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/90 backdrop-blur-xl p-4 sm:p-8",
+            // CHANGED: bg-zinc-950 forces a fully solid, pitch-black background on mobile.
+            className: "fixed inset-0 z-[99999] flex items-center justify-center bg-zinc-950 md:bg-zinc-950/95 backdrop-blur-2xl p-0 md:p-12",
             onClick: onClose,
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "absolute top-6 left-6 right-6 flex items-center justify-between z-10",
+                    className: "absolute top-4 md:top-6 left-4 md:left-6 right-4 md:right-6 flex items-center justify-between z-[10001] pointer-events-none",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "text-zinc-400 font-medium text-sm tracking-widest bg-zinc-900/50 px-4 py-2 rounded-full border border-zinc-800",
+                            className: "text-zinc-400 font-mono text-xs tracking-widest bg-zinc-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-zinc-800 pointer-events-auto shadow-xl",
                             children: [
                                 currentIndex + 1,
                                 " / ",
@@ -123,7 +168,7 @@ const GalleryOverlay = ({ images, isOpen, onClose })=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/GalleryOverlay.tsx",
-                            lineNumber: 73,
+                            lineNumber: 106,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -131,127 +176,120 @@ const GalleryOverlay = ({ images, isOpen, onClose })=>{
                                 e.stopPropagation();
                                 onClose();
                             },
-                            className: "p-3 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors",
+                            className: "p-3 bg-zinc-900/80 backdrop-blur-md hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors pointer-events-auto shadow-xl",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                                 size: 20
                             }, void 0, false, {
                                 fileName: "[project]/src/components/GalleryOverlay.tsx",
-                                lineNumber: 83,
+                                lineNumber: 116,
                                 columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/components/GalleryOverlay.tsx",
-                            lineNumber: 76,
+                            lineNumber: 109,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/GalleryOverlay.tsx",
-                    lineNumber: 72,
+                    lineNumber: 105,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0)),
-                images.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                images.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "hidden md:contents",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: handlePrev,
-                            className: "absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-10",
+                            className: "absolute left-12 top-1/2 -translate-y-1/2 p-4 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-[10001] shadow-2xl pointer-events-auto",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__["ChevronLeft"], {
                                 size: 24
                             }, void 0, false, {
                                 fileName: "[project]/src/components/GalleryOverlay.tsx",
-                                lineNumber: 94,
+                                lineNumber: 127,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/components/GalleryOverlay.tsx",
-                            lineNumber: 90,
+                            lineNumber: 123,
                             columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: handleNext,
-                            className: "absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-10",
+                            className: "absolute right-12 top-1/2 -translate-y-1/2 p-4 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-[10001] shadow-2xl pointer-events-auto",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                 size: 24
                             }, void 0, false, {
                                 fileName: "[project]/src/components/GalleryOverlay.tsx",
-                                lineNumber: 100,
+                                lineNumber: 133,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/components/GalleryOverlay.tsx",
-                            lineNumber: 96,
+                            lineNumber: 129,
                             columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
-                }, void 0, true),
+                }, void 0, true, {
+                    fileName: "[project]/src/components/GalleryOverlay.tsx",
+                    lineNumber: 122,
+                    columnNumber: 13
+                }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "relative w-full max-w-6xl aspect-video md:aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl",
-                    onClick: (e)=>e.stopPropagation(),
+                    className: "relative w-full max-w-7xl h-full flex items-center justify-center p-0 md:p-4 pointer-events-none",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
                         mode: "wait",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                            initial: {
-                                opacity: 0,
-                                scale: 0.95
+                        custom: direction,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].img, {
+                            src: images[currentIndex],
+                            alt: `Screenshot ${currentIndex + 1}`,
+                            custom: direction,
+                            drag: "x",
+                            dragConstraints: {
+                                left: 0,
+                                right: 0
                             },
-                            animate: {
-                                opacity: 1,
-                                scale: 1
+                            dragElastic: 0.6,
+                            onDragEnd: (_, info)=>{
+                                if (info.offset.x > 50) handlePrev();
+                                else if (info.offset.x < -50) handleNext();
                             },
-                            exit: {
-                                opacity: 0,
-                                scale: 1.05
-                            },
-                            transition: {
-                                duration: 0.4,
-                                ease: [
-                                    0.16,
-                                    1,
-                                    0.3,
-                                    1
-                                ]
-                            },
-                            className: "absolute inset-0",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                src: images[currentIndex],
-                                alt: `Screenshot ${currentIndex + 1}`,
-                                fill: true,
-                                className: "object-contain bg-zinc-950/50",
-                                sizes: "(max-width: 1200px) 100vw, 1200px",
-                                priority: true
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/GalleryOverlay.tsx",
-                                lineNumber: 119,
-                                columnNumber: 17
-                            }, ("TURBOPACK compile-time value", void 0))
+                            variants: dragVariant,
+                            initial: "initial",
+                            animate: "animate",
+                            exit: "exit",
+                            onClick: (e)=>e.stopPropagation(),
+                            className: "relative w-full md:w-auto max-w-full max-h-full md:max-h-[85vh] object-contain rounded-none md:rounded-2xl shadow-none md:shadow-2xl border-none md:border md:border-white/5 cursor-grab active:cursor-grabbing pointer-events-auto select-none bg-transparent md:bg-zinc-950/20",
+                            draggable: false
                         }, currentIndex, false, {
                             fileName: "[project]/src/components/GalleryOverlay.tsx",
-                            lineNumber: 111,
+                            lineNumber: 143,
                             columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/GalleryOverlay.tsx",
-                        lineNumber: 110,
+                        lineNumber: 142,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/components/GalleryOverlay.tsx",
-                    lineNumber: 106,
+                    lineNumber: 139,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/GalleryOverlay.tsx",
-            lineNumber: 63,
+            lineNumber: 95,
             columnNumber: 9
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/components/GalleryOverlay.tsx",
-        lineNumber: 61,
+        lineNumber: 93,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
+    if (!mounted) return null;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createPortal"])(overlayContent, document.body);
 };
-_s(GalleryOverlay, "IV962cwpatymeIPEwGmcjcEx2J0=");
+_s(GalleryOverlay, "472sFh78Y43+DVif19XApEciaOk=");
 _c = GalleryOverlay;
 const __TURBOPACK__default__export__ = GalleryOverlay;
 var _c;
@@ -295,15 +333,10 @@ const MagneticLinkButton = ({ children, href, className })=>{
     };
     const springX = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$spring$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSpring"])(x, springConfig);
     const springY = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$spring$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSpring"])(y, springConfig);
-    const rectRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const handleMouseEnter = ()=>{
-        if (!ref.current) return;
-        rectRef.current = ref.current.getBoundingClientRect();
-    };
     const handleMouseMove = (e)=>{
-        if (!rectRef.current) return;
+        if (!ref.current) return;
         const { clientX, clientY } = e;
-        const { height, width, left, top } = rectRef.current;
+        const { height, width, left, top } = ref.current.getBoundingClientRect();
         x.set((clientX - (left + width / 2)) * 0.2);
         y.set((clientY - (top + height / 2)) * 0.2);
     };
@@ -339,7 +372,7 @@ const MagneticLinkButton = ({ children, href, className })=>{
                 className: "absolute inset-0 bg-primary translate-y-[110%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0 rounded-full"
             }, void 0, false, {
                 fileName: "[project]/src/components/WorkSection.tsx",
-                lineNumber: 40,
+                lineNumber: 35,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -347,17 +380,17 @@ const MagneticLinkButton = ({ children, href, className })=>{
                 children: children
             }, void 0, false, {
                 fileName: "[project]/src/components/WorkSection.tsx",
-                lineNumber: 41,
+                lineNumber: 36,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/WorkSection.tsx",
-        lineNumber: 32,
+        lineNumber: 27,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(MagneticLinkButton, "oNa00nx7PMKbsJIh7JrxnbVBz80=", false, function() {
+_s(MagneticLinkButton, "6mKaULDq5hWoP9HQhzud4/26qIU=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$motion$2d$value$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMotionValue"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$motion$2d$value$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMotionValue"],
@@ -379,15 +412,10 @@ const MagneticActionButton = ({ children, onClick, className })=>{
     };
     const springX = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$spring$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSpring"])(x, springConfig);
     const springY = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$spring$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSpring"])(y, springConfig);
-    const rectRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const handleMouseEnter = ()=>{
-        if (!ref.current) return;
-        rectRef.current = ref.current.getBoundingClientRect();
-    };
     const handleMouseMove = (e)=>{
-        if (!rectRef.current) return;
+        if (!ref.current) return;
         const { clientX, clientY } = e;
-        const { height, width, left, top } = rectRef.current;
+        const { height, width, left, top } = ref.current.getBoundingClientRect();
         x.set((clientX - (left + width / 2)) * 0.2);
         y.set((clientY - (top + height / 2)) * 0.2);
     };
@@ -421,7 +449,7 @@ const MagneticActionButton = ({ children, onClick, className })=>{
                 className: "absolute inset-0 bg-primary translate-y-[110%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0 rounded-full"
             }, void 0, false, {
                 fileName: "[project]/src/components/WorkSection.tsx",
-                lineNumber: 75,
+                lineNumber: 65,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -429,17 +457,17 @@ const MagneticActionButton = ({ children, onClick, className })=>{
                 children: children
             }, void 0, false, {
                 fileName: "[project]/src/components/WorkSection.tsx",
-                lineNumber: 76,
+                lineNumber: 66,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/WorkSection.tsx",
-        lineNumber: 67,
+        lineNumber: 57,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s1(MagneticActionButton, "oNa00nx7PMKbsJIh7JrxnbVBz80=", false, function() {
+_s1(MagneticActionButton, "6mKaULDq5hWoP9HQhzud4/26qIU=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$motion$2d$value$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMotionValue"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$motion$2d$value$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMotionValue"],
@@ -456,7 +484,7 @@ const stackIconMap = {
         }
     }, void 0, false, {
         fileName: "[project]/src/components/WorkSection.tsx",
-        lineNumber: 82,
+        lineNumber: 72,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     "Strapi CMS": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$si$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SiStrapi"], {
@@ -466,7 +494,7 @@ const stackIconMap = {
         }
     }, void 0, false, {
         fileName: "[project]/src/components/WorkSection.tsx",
-        lineNumber: 83,
+        lineNumber: 73,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     "PostgreSQL": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$si$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SiPostgresql"], {
@@ -476,7 +504,7 @@ const stackIconMap = {
         }
     }, void 0, false, {
         fileName: "[project]/src/components/WorkSection.tsx",
-        lineNumber: 84,
+        lineNumber: 74,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0)),
     "Oracle Cloud": /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cloud$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Cloud$3e$__["Cloud"], {
@@ -486,7 +514,7 @@ const stackIconMap = {
         }
     }, void 0, false, {
         fileName: "[project]/src/components/WorkSection.tsx",
-        lineNumber: 85,
+        lineNumber: 75,
         columnNumber: 18
     }, ("TURBOPACK compile-time value", void 0))
 };
@@ -577,7 +605,7 @@ const VideoPlayer = ({ src })=>{
         suppressHydrationWarning: true
     }, void 0, false, {
         fileName: "[project]/src/components/WorkSection.tsx",
-        lineNumber: 155,
+        lineNumber: 145,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -598,7 +626,7 @@ const WorkSection = ()=>{
                         children: "03 // Selected Work"
                     }, void 0, false, {
                         fileName: "[project]/src/components/WorkSection.tsx",
-                        lineNumber: 178,
+                        lineNumber: 168,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].h2, {
@@ -627,7 +655,7 @@ const WorkSection = ()=>{
                         children: "Case studies."
                     }, void 0, false, {
                         fileName: "[project]/src/components/WorkSection.tsx",
-                        lineNumber: 181,
+                        lineNumber: 171,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].p, {
@@ -657,13 +685,13 @@ const WorkSection = ()=>{
                         children: "A showcase of custom-engineered web platforms built for real-world impact."
                     }, void 0, false, {
                         fileName: "[project]/src/components/WorkSection.tsx",
-                        lineNumber: 191,
+                        lineNumber: 181,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/WorkSection.tsx",
-                lineNumber: 177,
+                lineNumber: 167,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -714,20 +742,20 @@ const WorkSection = ()=>{
                                             src: "/videos/faizane-madina.mp4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/WorkSection.tsx",
-                                            lineNumber: 219,
+                                            lineNumber: 209,
                                             columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "absolute inset-0 bg-gradient-to-t from-zinc-950/80 to-transparent pointer-events-none"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/WorkSection.tsx",
-                                            lineNumber: 221,
+                                            lineNumber: 211,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/WorkSection.tsx",
-                                    lineNumber: 214,
+                                    lineNumber: 204,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -738,7 +766,7 @@ const WorkSection = ()=>{
                                             children: project.title
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/WorkSection.tsx",
-                                            lineNumber: 224,
+                                            lineNumber: 214,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -746,7 +774,7 @@ const WorkSection = ()=>{
                                             children: project.description
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/WorkSection.tsx",
-                                            lineNumber: 227,
+                                            lineNumber: 217,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -759,12 +787,12 @@ const WorkSection = ()=>{
                                                     ]
                                                 }, tech, true, {
                                                     fileName: "[project]/src/components/WorkSection.tsx",
-                                                    lineNumber: 232,
+                                                    lineNumber: 222,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)))
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/WorkSection.tsx",
-                                            lineNumber: 230,
+                                            lineNumber: 220,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -788,18 +816,18 @@ const WorkSection = ()=>{
                                                                 d: "M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/WorkSection.tsx",
-                                                                lineNumber: 248,
+                                                                lineNumber: 238,
                                                                 columnNumber: 204
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/WorkSection.tsx",
-                                                            lineNumber: 248,
+                                                            lineNumber: 238,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/WorkSection.tsx",
-                                                    lineNumber: 243,
+                                                    lineNumber: 233,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 project.link && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(MagneticLinkButton, {
@@ -821,54 +849,54 @@ const WorkSection = ()=>{
                                                                     d: "M7 7h10v10"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/WorkSection.tsx",
-                                                                    lineNumber: 257,
+                                                                    lineNumber: 247,
                                                                     columnNumber: 204
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                                                     d: "M7 17 17 7"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/WorkSection.tsx",
-                                                                    lineNumber: 257,
+                                                                    lineNumber: 247,
                                                                     columnNumber: 226
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/WorkSection.tsx",
-                                                            lineNumber: 257,
+                                                            lineNumber: 247,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/WorkSection.tsx",
-                                                    lineNumber: 252,
+                                                    lineNumber: 242,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/WorkSection.tsx",
-                                            lineNumber: 241,
+                                            lineNumber: 231,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/WorkSection.tsx",
-                                    lineNumber: 223,
+                                    lineNumber: 213,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, project.title, true, {
                             fileName: "[project]/src/components/WorkSection.tsx",
-                            lineNumber: 205,
+                            lineNumber: 195,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)))
                 }, void 0, false, {
                     fileName: "[project]/src/components/WorkSection.tsx",
-                    lineNumber: 203,
+                    lineNumber: 193,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/components/WorkSection.tsx",
-                lineNumber: 202,
+                lineNumber: 192,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$GalleryOverlay$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -877,13 +905,13 @@ const WorkSection = ()=>{
                 onClose: ()=>setActiveGallery(null)
             }, void 0, false, {
                 fileName: "[project]/src/components/WorkSection.tsx",
-                lineNumber: 267,
+                lineNumber: 257,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/WorkSection.tsx",
-        lineNumber: 176,
+        lineNumber: 166,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };

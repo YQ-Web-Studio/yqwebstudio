@@ -37,7 +37,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const InteractiveGlassCard = ({ children, className, delay = 0 })=>{
+const InteractiveGlassCard = ({ children, className, delay = 0, disableTilt = false })=>{
     _s();
     const divRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const [isFocused, setIsFocused] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -55,6 +55,7 @@ const InteractiveGlassCard = ({ children, className, delay = 0 })=>{
         stiffness: 300,
         damping: 30
     });
+    // Disable rotation if disableTilt is true OR if it's a touch-type interaction
     const rotateX = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTransform"])(mouseYSpring, [
         -0.2,
         0.2
@@ -70,20 +71,23 @@ const InteractiveGlassCard = ({ children, className, delay = 0 })=>{
         "10deg"
     ]);
     const rectRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const handlePointerEnter = ()=>{
+    const handlePointerEnter = (e)=>{
+        if (e.pointerType === "touch") return;
         if (!divRef.current) return;
         rectRef.current = divRef.current.getBoundingClientRect();
         mouseOpacity.set(1);
     };
     const handlePointerMove = (e)=>{
-        // Ignore touch movements to prevent sticky physics on mobile scroll
+        // Ignore touch movements for physics to prevent sticky tilt on mobile scroll
         if (e.pointerType === "touch") return;
         const rect = rectRef.current;
         if (!rect) return;
         mouseX.set(e.clientX - rect.left);
         mouseY.set(e.clientY - rect.top);
-        x.set((e.clientX - rect.left) / rect.width - 0.5);
-        y.set((e.clientY - rect.top) / rect.height - 0.5);
+        if (!disableTilt) {
+            x.set((e.clientX - rect.left) / rect.width - 0.5);
+            y.set((e.clientY - rect.top) / rect.height - 0.5);
+        }
     };
     const handlePointerLeave = (e)=>{
         if (e.pointerType === "touch") return;
@@ -104,14 +108,15 @@ const InteractiveGlassCard = ({ children, className, delay = 0 })=>{
             y.set(0);
             rectRef.current = null;
         } else {
-            // Tap to tilt
+            // Tap to activate glow (physics remain disabled on mobile via handlePointerMove check)
             if (!divRef.current) return;
             rectRef.current = divRef.current.getBoundingClientRect();
             const rect = rectRef.current;
             mouseX.set(e.clientX - rect.left);
             mouseY.set(e.clientY - rect.top);
-            x.set((e.clientX - rect.left) / rect.width - 0.5);
-            y.set((e.clientY - rect.top) / rect.height - 0.5);
+            // Explicitly ensures NO tilt on tap for mobile
+            x.set(0);
+            y.set(0);
             mouseOpacity.set(1);
             setIsActive(true);
         }
@@ -128,7 +133,7 @@ const InteractiveGlassCard = ({ children, className, delay = 0 })=>{
             onPointerLeave: handlePointerLeave,
             onPointerDown: handlePointerDown,
             onFocus: ()=>{
-                setIsFocused(true);
+                if (!disableTilt) setIsFocused(true);
                 mouseOpacity.set(1);
             },
             onBlur: ()=>{
@@ -158,12 +163,11 @@ const InteractiveGlassCard = ({ children, className, delay = 0 })=>{
                 ]
             },
             style: {
-                rotateX,
-                rotateY,
-                transformStyle: "preserve-3d"
+                rotateX: disableTilt ? 0 : rotateX,
+                rotateY: disableTilt ? 0 : rotateY,
+                transformStyle: disableTilt ? "flat" : "preserve-3d"
             },
-            className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("relative overflow-hidden bg-zinc-950/80 backdrop-blur-md border rounded-3xl transition-colors duration-300 group", // Use dynamic state for border/shadow instead of aggressive hover pseudo-classes that get stuck on mobile
-            isActive ? "border-purple-500/30 shadow-[0_0_30px_rgba(147,51,234,0.1)]" : "border-zinc-800 md:hover:border-purple-500/30 md:hover:shadow-[0_0_30px_rgba(147,51,234,0.1)]", className),
+            className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("relative overflow-hidden bg-zinc-950/80 backdrop-blur-md border rounded-3xl transition-colors duration-300 group", isActive ? "border-purple-500/30 shadow-[0_0_30px_rgba(147,51,234,0.1)]" : "border-zinc-800 md:hover:border-purple-500/30 md:hover:shadow-[0_0_30px_rgba(147,51,234,0.1)]", className),
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                     className: "pointer-events-none absolute -inset-px opacity-0 transition duration-300 rounded-3xl z-0",
@@ -173,34 +177,34 @@ const InteractiveGlassCard = ({ children, className, delay = 0 })=>{
                             mouseX,
                             mouseY
                         ], {
-                            "InteractiveGlassCard.useTransform": ([x, y])=>`radial-gradient(600px circle at ${x}px ${y}px, rgba(147, 51, 234, 0.15), transparent 40%)`
+                            "InteractiveGlassCard.useTransform": ([xVal, yVal])=>`radial-gradient(600px circle at ${xVal}px ${yVal}px, rgba(147, 51, 234, 0.15), transparent 40%)`
                         }["InteractiveGlassCard.useTransform"])
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/InteractiveGlassCard.tsx",
-                    lineNumber: 108,
+                    lineNumber: 119,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     style: {
-                        transform: "translateZ(30px)"
+                        transform: disableTilt ? "none" : "translateZ(30px)"
                     },
                     className: "relative z-10 w-full h-full",
                     children: children
                 }, void 0, false, {
                     fileName: "[project]/src/components/InteractiveGlassCard.tsx",
-                    lineNumber: 118,
+                    lineNumber: 129,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/InteractiveGlassCard.tsx",
-            lineNumber: 86,
+            lineNumber: 94,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/components/InteractiveGlassCard.tsx",
-        lineNumber: 85,
+        lineNumber: 93,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -262,8 +266,8 @@ const TelemetryTypewriter = ({ text })=>{
     const ref = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const isInView = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$utils$2f$use$2d$in$2d$view$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useInView"])(ref, {
         once: true,
-        margin: "-100px"
-    });
+        margin: "50px"
+    }); // Trigger BEFORE entering viewport
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "TelemetryTypewriter.useEffect": ()=>{
             if (!isInView) return;
@@ -774,11 +778,11 @@ const BackgroundSection = ()=>{
                 },
                 viewport: isMobile ? {
                     once: false,
-                    amount: "all",
+                    amount: 0.7,
                     margin: "0px 0px -10% 0px"
                 } : {
                     once: true,
-                    amount: 0.3
+                    amount: 0.1
                 },
                 transition: {
                     duration: 1.4,
@@ -1145,6 +1149,7 @@ const BackgroundSection = ()=>{
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-full mt-10 md:mt-20 relative z-10 pointer-events-auto px-6 md:px-0",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$InteractiveGlassCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["InteractiveGlassCard"], {
+                            disableTilt: isMobile,
                             delay: 0.2,
                             className: "bg-zinc-900/40 rounded-[2rem] md:rounded-[2.5rem] py-10 px-6 sm:px-8 md:p-12",
                             children: [

@@ -8,9 +8,10 @@ interface InteractiveGlassCardProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  disableTilt?: boolean;
 }
 
-export const InteractiveGlassCard = ({ children, className, delay = 0 }: InteractiveGlassCardProps) => {
+export const InteractiveGlassCard = ({ children, className, delay = 0, disableTilt = false }: InteractiveGlassCardProps) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -23,32 +24,38 @@ export const InteractiveGlassCard = ({ children, className, delay = 0 }: Interac
   const y = useMotionValue(0);
   const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  
+  // Disable rotation if disableTilt is true OR if it's a touch-type interaction
   const rotateX = useTransform(mouseYSpring, [-0.2, 0.2], ["10deg", "-10deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.2, 0.2], ["-10deg", "10deg"]);
 
   const rectRef = useRef<DOMRect | null>(null);
 
-  const handlePointerEnter = () => {
+  const handlePointerEnter = (e: React.PointerEvent) => {
+    if ((e.pointerType as string) === "touch") return;
     if (!divRef.current) return;
     rectRef.current = divRef.current.getBoundingClientRect();
     mouseOpacity.set(1);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    // Ignore touch movements to prevent sticky physics on mobile scroll
-    if (e.pointerType === "touch") return;
+    // Ignore touch movements for physics to prevent sticky tilt on mobile scroll
+    if ((e.pointerType as string) === "touch") return;
     
     const rect = rectRef.current;
     if (!rect) return;
     
     mouseX.set(e.clientX - rect.left);
     mouseY.set(e.clientY - rect.top);
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
+
+    if (!disableTilt) {
+      x.set((e.clientX - rect.left) / rect.width - 0.5);
+      y.set((e.clientY - rect.top) / rect.height - 0.5);
+    }
   };
 
   const handlePointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType === "touch") return;
+    if ((e.pointerType as string) === "touch") return;
     mouseOpacity.set(0);
     setIsActive(false);
     rectRef.current = null;
@@ -68,14 +75,15 @@ export const InteractiveGlassCard = ({ children, className, delay = 0 }: Interac
       y.set(0);
       rectRef.current = null;
     } else {
-      // Tap to tilt
+      // Tap to activate glow (physics remain disabled on mobile via handlePointerMove check)
       if (!divRef.current) return;
       rectRef.current = divRef.current.getBoundingClientRect();
       const rect = rectRef.current;
       mouseX.set(e.clientX - rect.left);
       mouseY.set(e.clientY - rect.top);
-      x.set((e.clientX - rect.left) / rect.width - 0.5);
-      y.set((e.clientY - rect.top) / rect.height - 0.5);
+      // Explicitly ensures NO tilt on tap for mobile
+      x.set(0);
+      y.set(0);
       mouseOpacity.set(1);
       setIsActive(true);
     }
@@ -89,16 +97,19 @@ export const InteractiveGlassCard = ({ children, className, delay = 0 }: Interac
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
         onPointerDown={handlePointerDown}
-        onFocus={() => { setIsFocused(true); mouseOpacity.set(1); }}
+        onFocus={() => { if (!disableTilt) setIsFocused(true); mouseOpacity.set(1); }}
         onBlur={() => { setIsFocused(false); mouseOpacity.set(0); }}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={{ 
+          rotateX: disableTilt ? 0 : rotateX, 
+          rotateY: disableTilt ? 0 : rotateY, 
+          transformStyle: disableTilt ? "flat" : "preserve-3d" 
+        }}
         className={cn(
           "relative overflow-hidden bg-zinc-950/80 backdrop-blur-md border rounded-3xl transition-colors duration-300 group",
-          // Use dynamic state for border/shadow instead of aggressive hover pseudo-classes that get stuck on mobile
           isActive 
             ? "border-purple-500/30 shadow-[0_0_30px_rgba(147,51,234,0.1)]" 
             : "border-zinc-800 md:hover:border-purple-500/30 md:hover:shadow-[0_0_30px_rgba(147,51,234,0.1)]",
@@ -111,11 +122,11 @@ export const InteractiveGlassCard = ({ children, className, delay = 0 }: Interac
             opacity: mouseOpacity,
             background: useTransform(
               [mouseX, mouseY],
-              ([x, y]) => `radial-gradient(600px circle at ${x}px ${y}px, rgba(147, 51, 234, 0.15), transparent 40%)`
+              ([xVal, yVal]) => `radial-gradient(600px circle at ${xVal}px ${yVal}px, rgba(147, 51, 234, 0.15), transparent 40%)`
             ),
           }}
         />
-        <div style={{ transform: "translateZ(30px)" }} className="relative z-10 w-full h-full">
+        <div style={{ transform: disableTilt ? "none" : "translateZ(30px)" }} className="relative z-10 w-full h-full">
           {children}
         </div>
       </motion.div>

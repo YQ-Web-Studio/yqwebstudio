@@ -107,7 +107,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-6 left-0 right-0 z-[60] flex justify-center pointer-events-none">
+      <div className="fixed top-3 md:top-6 left-0 right-0 z-[60] flex justify-center pointer-events-none">
         <motion.div
           layout
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}

@@ -7,6 +7,7 @@ const ServicesSection = dynamic(() => import('@/components/ServicesSection'), { 
 const BackgroundSection = dynamic(() => import('@/components/BackgroundSection'), { ssr: false });
 const WorkSection = dynamic(() => import('@/components/WorkSection'), { ssr: false });
 const LabsSection = dynamic(() => import('@/components/LabsSection'), { ssr: false });
+const QuestionsSection = dynamic(() => import('@/components/QuestionsSection'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 
 export const BelowTheFold = () => {
@@ -45,6 +46,7 @@ export const BelowTheFold = () => {
                 <BackgroundSection />
                 <WorkSection />
                 <LabsSection />
+                <QuestionsSection />
                 <Footer />
             </div>
             )}

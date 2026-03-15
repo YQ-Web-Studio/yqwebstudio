@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useContact } from "@/context/ContactContext";
 import { useRef } from "react";
+import Link from "next/link";
 
 const MagneticFooterButton = ({ onClick, children }: { onClick: () => void, children: React.ReactNode }) => {
   const ref = useRef<HTMLButtonElement>(null);
@@ -84,10 +85,18 @@ const Footer = () => {
           </MagneticFooterButton>
         </div>
 
-        <div className="mt-20 flex justify-center w-full">
-          <p className="text-sm text-muted-foreground text-center">
+        <div className="mt-20 flex flex-col md:flex-row justify-between items-center w-full gap-4">
+          <p className="text-sm text-muted-foreground text-center md:text-left">
             © {new Date().getFullYear()} YQ Web Studio. All rights reserved.
           </p>
+          <div className="flex items-center gap-6">
+            <Link 
+              href="/privacy-policy" 
+              className="text-sm text-muted-foreground hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </div>
     </motion.footer>

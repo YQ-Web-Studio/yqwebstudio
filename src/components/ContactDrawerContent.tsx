@@ -178,7 +178,7 @@ export const ContactDrawerContent = ({ isOpen, closeContact }: { isOpen: boolean
               <button
                 onClick={handleClose}
                 className="p-3 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all active:scale-90"
-                aria-label="Close drawer"
+                aria-label="Close"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -295,7 +295,7 @@ export const ContactDrawerContent = ({ isOpen, closeContact }: { isOpen: boolean
                       onClick={handleClose}
                       className="px-8 py-3 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 font-medium hover:border-zinc-600 transition-colors"
                     >
-                      Close Drawer
+                      Close
                     </button>
                   </motion.div>
                 )}

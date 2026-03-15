@@ -17,8 +17,8 @@ export async function sendContactEmail(formData: FormData) {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: 'yusufq2004@gmail.com',
+      from: 'YQ Web Studio <notifications@send.yqwebstudio.com>',
+      to: 'projects@yqwebstudio.com',
       subject: `New Project Enquiry from ${name}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 10px;">
@@ -32,7 +32,7 @@ export async function sendContactEmail(formData: FormData) {
             <p style="white-space: pre-wrap;">${projectDetails}</p>
           </div>
           <footer style="margin-top: 20px; font-size: 12px; color: #666; text-align: center;">
-            <p>Sent via YQ Digital Portfolio Contact Form</p>
+            <p>Sent via YQ Web Studio 'Start a Project' Form</p>
           </footer>
         </div>
       `,

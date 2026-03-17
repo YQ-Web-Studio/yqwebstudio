@@ -163,7 +163,7 @@ const WorkSection = () => {
   const [activeGallery, setActiveGallery] = useState<string[] | null>(null);
 
   return (
-    <section id="work" className="py-16 md:py-24">
+    <section id="case-studies" className="py-16 md:py-24">
       <div className="container mx-auto max-w-6xl px-6">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           03 // Selected Work
@@ -175,7 +175,7 @@ const WorkSection = () => {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow"
         >
-          Case studies.
+          Case Studies.
         </motion.h2>
         
         <motion.p

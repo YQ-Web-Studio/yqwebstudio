@@ -65,14 +65,14 @@ export const MobileFlyoutMenu = ({
           {isMobilePortfolioOpen && (
             <div className="overflow-hidden flex flex-col items-center gap-5 pt-8 animate-in fade-in slide-in-from-top-2 duration-300">
               <a
-                href="#work"
+                href="#case-studies"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-2xl font-semibold text-zinc-400 hover:text-purple-400 transition-colors whitespace-nowrap"
               >
                 Case Studies
               </a>
               <a
-                href="#labs"
+                href="#in-development"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-2xl font-semibold text-zinc-400 hover:text-purple-400 transition-colors whitespace-nowrap"
               >
@@ -82,15 +82,13 @@ export const MobileFlyoutMenu = ({
           )}
         </div>
 
-        <button
-          onClick={() => {
-            setIsMenuOpen(false);
-            openContact();
-          }}
+        <a
+          href="#contact"
+          onClick={() => setIsMenuOpen(false)}
           className="text-4xl font-bold tracking-tight text-white hover:text-purple-400 transition-colors whitespace-nowrap text-left"
         >
           Contact
-        </button>
+        </a>
       </div>
     </div>
   );

@@ -29,14 +29,14 @@ export const DesktopPortfolioDropdown = ({
       <div className="h-6" />
       <div className="w-52 rounded-2xl p-2 flex flex-col shadow-2xl bg-zinc-950/80 backdrop-blur-xl border border-zinc-800">
         <a
-          href="#work"
+          href="#case-studies"
           className="px-4 py-3 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between group/link"
         >
           Case Studies
           <ChevronRight className="w-4 h-4 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-200 text-purple-400" />
         </a>
         <a
-          href="#labs"
+          href="#in-development"
           className="px-4 py-3 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between group/link"
         >
           In Development

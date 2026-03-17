@@ -188,12 +188,12 @@ export const Navbar = () => {
                         <ChevronDown className={`w-3.5 h-3.5 opacity-60 transition-transform duration-300 ${isPortfolioOpen ? "rotate-180" : ""}`} />
                       </button>
                     </div>
-                    <button 
-                      onClick={openContact}
+                    <a 
+                      href="#contact"
                       className="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap"
                     >
                       Contact
-                    </button>
+                    </a>
                   </div>
                 </motion.div>
               )}

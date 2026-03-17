@@ -67,7 +67,7 @@ const LabsSection = () => {
   `;
 
   return (
-    <section id="labs" className="py-16 md:py-24">
+    <section id="in-development" className="py-16 md:py-24">
       <div className="container mx-auto max-w-6xl px-6">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           04 // Current Engineering
@@ -80,7 +80,7 @@ const LabsSection = () => {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow"
           >
-            In development.
+            In Development.
           </motion.h2>
         </div>
 

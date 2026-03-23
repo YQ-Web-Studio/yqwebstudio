@@ -23,9 +23,12 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://yqwebstudio.com'),
+  alternates: {
+    canonical: '/',
+  },
   title: 'YQ Web Studio | Engineering Premium Web Solutions',
   description: 'Bespoke web applications designed to drive business growth. Based in Southend-on-Sea, UK, YQ Web Studio delivers full-stack development and lightning-fast digital experiences for ambitious brands worldwide.',
-  metadataBase: new URL('https://yqwebstudio.com'),
   openGraph: {
     title: 'YQ Web Studio | Premium Bespoke Web Design',
     description: 'Premium web design and full-stack development. Based in Southend-on-Sea, UK, building high-converting digital experiences for businesses globally.',

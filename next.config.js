@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // 1. Fix "Page with redirect" by forcing a consistent URL structure
+  // This ensures every URL ends with a / (e.g. /about/)
+  trailingSlash: true, 
+
   experimental: {
     // This helps with TBT by optimizing how icons and heavy libs are bundled
     optimizePackageImports: [

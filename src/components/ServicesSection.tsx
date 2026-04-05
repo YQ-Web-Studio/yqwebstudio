@@ -29,7 +29,7 @@ const services = [
       "Performance monitoring",
       "Priority support",
     ],
-    price: "from £20 / month",
+    price: "from £10 / month",
     highlight: true,
   },
 ];

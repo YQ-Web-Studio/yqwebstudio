@@ -62,10 +62,10 @@ export const HeroButtons = () => {
       className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 pb-20 pointer-events-auto"
     >
       <MagneticButton
-        href="#work"
+        href="#case-studies"
         className="inline-flex items-center justify-center px-8 py-4 rounded-[2rem] bg-zinc-900 border border-zinc-800 text-white font-medium text-sm transition-colors"
         onClick={() => {
-          const el = document.getElementById('work');
+          const el = document.getElementById('case-studies');
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         }}
       >

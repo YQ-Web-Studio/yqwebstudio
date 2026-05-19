@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import {
-  SiReact, SiStrapi, SiPostgresql
+  SiReact, SiStrapi, SiPostgresql, SiCloudinary
 } from "react-icons/si";
 import { Cloud } from "lucide-react"; // Oracle Cloud fallback
 import React from "react";
@@ -72,6 +72,7 @@ const stackIconMap: Record<string, React.ReactNode> = {
   "React":       <SiReact className="w-3.5 h-3.5 shrink-0" style={{ color: "#61DAFB" }} />,
   "Strapi CMS":  <SiStrapi className="w-3.5 h-3.5 shrink-0" style={{ color: "#4945FF" }} />,
   "PostgreSQL":  <SiPostgresql className="w-3.5 h-3.5 shrink-0" style={{ color: "#4169E1" }} />,
+  "Cloudinary":  <SiCloudinary className="w-3.5 h-3.5 shrink-0" style={{ color: "#3448C5" }} />,
   "Oracle Cloud":<Cloud className="w-3.5 h-3.5 shrink-0" style={{ color: "#F80000" }} />,
 };
 
@@ -79,7 +80,7 @@ const projects = [
   {
     title: "Faizane Madina Masjid Southend | Dawat-e-Islami",
     description: "Official website of Faizane Madina Masjid Southend (Dawat-e-Islami). View daily prayer times, event details and more. Serving 200+ community members. Engineered to reduce manual workload with integrated media management.",
-    stack: ["React", "Strapi CMS", "PostgreSQL", "Oracle Cloud"],
+    stack: ["React", "Strapi CMS", "PostgreSQL", "Cloudinary", "Oracle Cloud"],
     link: "https://faizanemadinasouthend.co.uk",
     gallery: [
       "/faizane-madina-screenshots/Screenshot 2026-03-06 172800.png",

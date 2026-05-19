@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  title: 'YQ Web Studio | Engineering Premium Web Solutions',
+  title: 'YQ Web Studio | Premium Web Solutions Designed For Business Growth',
   description: 'Bespoke web applications designed to drive business growth. Based in Southend-on-Sea, UK, YQ Web Studio delivers full-stack development and lightning-fast digital experiences for ambitious brands worldwide.',
   openGraph: {
     title: 'YQ Web Studio | Premium Bespoke Web Design',

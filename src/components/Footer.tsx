@@ -66,23 +66,49 @@ const Footer = () => {
       className="pt-8 pb-32 md:py-24 border-t border-border/50"
     >
       <div className="container mx-auto max-w-6xl px-6">
-        <div className="overflow-visible mb-4 md:mb-12 w-full flex flex-col items-center text-center md:items-start md:text-left">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl xs:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-50 heading-glow px-4 md:px-16 py-4 md:py-8 md:-ml-16 w-full md:w-fit flex flex-col items-center md:items-start text-center md:text-left"
-          >
-            <span className="block whitespace-nowrap">Ready to digitalise</span>
-            <span className="text-gradient font-serif italic font-normal block mt-2 whitespace-nowrap px-6 md:pl-0 md:pr-12 pb-4">your business?</span>
-          </motion.h2>
-        </div>
-        
-        <div className="mt-2 md:mt-8 flex justify-center md:justify-start">
-          <MagneticFooterButton onClick={openContact}>
-            Start a Project
-          </MagneticFooterButton>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+          {/* Left Column: Slogan and Magnetic Call to Action Button */}
+          <div className="flex flex-col items-center text-center md:items-start md:text-left">
+            <div className="overflow-visible mb-4 md:mb-6 w-full flex flex-col items-center text-center md:items-start md:text-left">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="text-4xl xs:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-50 heading-glow px-4 md:px-16 py-4 md:py-8 md:-ml-16 w-full md:w-fit flex flex-col items-center md:items-start text-center md:text-left"
+              >
+                <span className="block whitespace-nowrap">Ready to digitalise</span>
+                <span className="text-gradient font-serif italic font-normal block mt-2 whitespace-nowrap px-6 md:pl-0 md:pr-12 pb-4">your business?</span>
+              </motion.h2>
+            </div>
+            
+            <div className="mt-2 flex justify-center md:justify-start">
+              <MagneticFooterButton onClick={openContact}>
+                Start a Project
+              </MagneticFooterButton>
+            </div>
+          </div>
+
+          {/* Right Column: Premium YQ. Web Studio Brandmark */}
+          <div className="flex flex-col items-center justify-center md:items-end pt-8 md:pt-0">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              className="flex flex-col items-center pointer-events-none select-none md:-mr-4"
+            >
+              {/* Signature YQ. Mark */}
+              <span className="text-7xl sm:text-8xl md:text-9xl font-extrabold tracking-tighter text-white leading-none relative">
+                YQ<span className="text-purple-500 animate-pulse duration-[3000ms]">.</span>
+              </span>
+              
+              {/* Monospaced spacious Web Studio slogan beneath */}
+              <span className="text-xs sm:text-sm font-mono uppercase tracking-[0.45em] text-zinc-400 mt-3 block pl-[0.45em]">
+                web studio
+              </span>
+            </motion.div>
+          </div>
         </div>
 
         <div className="mt-20 flex flex-col md:flex-row justify-between items-center w-full gap-4">

@@ -9,8 +9,9 @@ import {
   SiReact, SiNextdotjs, SiFlutter, SiTailwindcss,
   SiNodedotjs, SiPostgresql, SiMysql, SiStrapi, SiFirebase,
   SiGooglecloud, SiDocker, SiNginx, SiLinux,
+  SiWordpress, SiWoocommerce, SiCloudflare, SiCloudinary, SiGraphql
 } from "react-icons/si";
-import { Coffee, Server, Cloud } from "lucide-react"; // Java, AWS, Oracle Cloud fallbacks
+import { Coffee, Server, Cloud, Network } from "lucide-react"; // Java, AWS, Oracle Cloud fallbacks
 import { InteractiveGlassCard } from "@/components/InteractiveGlassCard";
 
 const TelemetryTypewriter = ({ text }: { text: string }) => {
@@ -83,15 +84,15 @@ const stack = [
   },
   {
     category: "Web & Mobile",
-    items: ["React", "Next.js", "React Native", "Flutter", "Tailwind CSS"],
+    items: ["React", "Next.js", "WordPress", "WooCommerce", "React Native", "Flutter", "Tailwind CSS"],
   },
   {
     category: "Backend & Database",
-    items: ["Node.js", "PostgreSQL", "MySQL", "Strapi", "Firebase"],
+    items: ["Node.js", "PostgreSQL", "MySQL", "Strapi", "Firebase", "REST API", "GraphQL"],
   },
   {
     category: "DevOps & Cloud",
-    items: ["Oracle Cloud", "AWS", "Google Cloud", "Docker", "Nginx", "Linux"],
+    items: ["Oracle Cloud", "AWS", "Google Cloud", "Cloudflare", "Cloudinary", "Docker", "Nginx", "Linux"],
   },
 ];
 
@@ -105,6 +106,8 @@ const iconMap: Record<string, React.ReactNode> = {
   "PHP":          <SiPhp className="w-3.5 h-3.5 shrink-0" style={{ color: "#777BB4" }} />,
   "React":        <SiReact className="w-3.5 h-3.5 shrink-0" style={{ color: "#61DAFB" }} />,
   "Next.js":      <SiNextdotjs className="w-3.5 h-3.5 shrink-0" style={{ color: "#ffffff" }} />,
+  "WordPress":    <SiWordpress className="w-3.5 h-3.5 shrink-0" style={{ color: "#21759B" }} />,
+  "WooCommerce":  <SiWoocommerce className="w-3.5 h-3.5 shrink-0" style={{ color: "#96588A" }} />,
   "React Native": <SiReact className="w-3.5 h-3.5 shrink-0" style={{ color: "#61DAFB" }} />,
   "Flutter":      <SiFlutter className="w-3.5 h-3.5 shrink-0" style={{ color: "#02569B" }} />,
   "Tailwind CSS": <SiTailwindcss className="w-3.5 h-3.5 shrink-0" style={{ color: "#06B6D4" }} />,
@@ -113,9 +116,13 @@ const iconMap: Record<string, React.ReactNode> = {
   "MySQL":        <SiMysql className="w-3.5 h-3.5 shrink-0" style={{ color: "#4479A1" }} />,
   "Strapi":       <SiStrapi className="w-3.5 h-3.5 shrink-0" style={{ color: "#4945FF" }} />,
   "Firebase":     <SiFirebase className="w-3.5 h-3.5 shrink-0" style={{ color: "#FFCA28" }} />,
+  "REST API":     <Network className="w-3.5 h-3.5 shrink-0" style={{ color: "#a855f7" }} />,
+  "GraphQL":      <SiGraphql className="w-3.5 h-3.5 shrink-0" style={{ color: "#E10098" }} />,
   "AWS":          <Server className="w-3.5 h-3.5 shrink-0" style={{ color: "#FF9900" }} />,
   "Oracle Cloud": <Cloud className="w-3.5 h-3.5 shrink-0" style={{ color: "#F80000" }} />,
   "Google Cloud": <SiGooglecloud className="w-3.5 h-3.5 shrink-0" style={{ color: "#4285F4" }} />,
+  "Cloudflare":   <SiCloudflare className="w-3.5 h-3.5 shrink-0" style={{ color: "#F38020" }} />,
+  "Cloudinary":   <SiCloudinary className="w-3.5 h-3.5 shrink-0" style={{ color: "#3448C5" }} />,
   "Docker":       <SiDocker className="w-3.5 h-3.5 shrink-0" style={{ color: "#2496ED" }} />,
   "Nginx":        <SiNginx className="w-3.5 h-3.5 shrink-0" style={{ color: "#009639" }} />,
   "Linux":        <SiLinux className="w-3.5 h-3.5 shrink-0" style={{ color: "#FCC624" }} />,

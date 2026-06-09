@@ -17,7 +17,7 @@ export async function sendContactEmail(formData: FormData) {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'YQ Web Studio <notifications@send.yqwebstudio.com>',
+      from: 'YQ Web Studio <noreply@notifications.yqwebstudio.com>',
       to: 'projects@yqwebstudio.com',
       subject: `New Project Enquiry from ${name}`,
       html: `

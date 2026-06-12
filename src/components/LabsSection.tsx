@@ -4,21 +4,32 @@ import Image from "next/image";
 import { motion, useInView, useMotionTemplate, useMotionValue } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { SiReact, SiFirebase, SiGooglemaps } from "react-icons/si";
-import { Layers } from "lucide-react";
+import { Layers, Github } from "lucide-react";
 
 const features = [
-  "Community-Verified Data & Trust System",
-  "Privacy-First Architecture",
-  "Offline-Ready Architecture (Coming Soon)",
+  {
+    title: "Real-time crowdsourcing",
+    description: "A custom voting system that lets the community verify and update map locations so the data never goes stale."
+  },
+  {
+    title: "Native AI search",
+    description: "A built-in chat assistant that pings the live web to instantly fill in any missing database gaps for the user."
+  },
+  {
+    title: "Hardware-level precision",
+    description: "Direct integration with the phone's magnetometer for an offline, highly accurate compass."
+  }
 ];
 
-const TelemetryTypewriter = ({ text }: { text: string }) => {
+const TelemetryTypewriter = ({ text, onComplete }: { text: string; onComplete?: () => void }) => {
   const [displayedText, setDisplayedText] = useState("");
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const hasTyped = useRef(false);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || hasTyped.current) return;
+    hasTyped.current = true;
     let i = 0;
     const interval = setInterval(() => {
       if (i <= text.length) {
@@ -26,10 +37,13 @@ const TelemetryTypewriter = ({ text }: { text: string }) => {
         i++;
       } else {
         clearInterval(interval);
+        if (onComplete) {
+          onComplete();
+        }
       }
-    }, 30);
+    }, 12);
     return () => clearInterval(interval);
-  }, [isInView, text]);
+  }, [isInView, text, onComplete]);
 
   return (
     <div ref={ref} className="min-h-[5rem]">
@@ -48,7 +62,23 @@ const TelemetryTypewriter = ({ text }: { text: string }) => {
   );
 };
 
+const MagneticLinkButton = ({ children, href, className }: { children: React.ReactNode; href: string; className: string }) => {
+  return (
+    <motion.a
+      href={href} target="_blank" rel="noopener noreferrer"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.3 }}
+      className={`relative overflow-hidden group font-unbounded ${className}`}
+    >
+      <span className="absolute inset-0 bg-primary translate-y-[110%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0 rounded-full" />
+      <span className="relative z-10 flex items-center gap-2">{children}</span>
+    </motion.a>
+  );
+};
+
 const LabsSection = () => {
+  const [isIntroComplete, setIsIntroComplete] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -68,7 +98,7 @@ const LabsSection = () => {
 
   return (
     <section id="in-development" className="py-16 md:py-24">
-      <div className="container mx-auto max-w-6xl px-6">
+      <div className="container mx-auto max-w-7xl px-6 mb-12">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           04 // Current Engineering
         </p>
@@ -78,7 +108,7 @@ const LabsSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow"
+            className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow font-syne"
           >
             In Development.
           </motion.h2>
@@ -89,13 +119,13 @@ const LabsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-muted-foreground text-lg md:text-xl max-w-2xl mt-4 mb-12"
+          className="text-muted-foreground text-lg md:text-xl max-w-6xl mt-4 font-unbounded"
         >
           A look behind the scenes at the platforms and applications I am currently building.
         </motion.p>
       </div>
 
-      <div className="w-full max-w-6xl mx-auto md:px-6">
+      <div className="w-full max-w-7xl mx-auto md:px-6">
         <div className="glass rounded-none border-x-0 md:rounded-[2.5rem] md:border-x p-8 sm:p-12 relative overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
             {/* Phone mockup */}
@@ -151,7 +181,7 @@ const LabsSection = () => {
                   >
                     <Image
                       src="/mosquemap-screenshot.png"
-                      alt="MosqueMap App Screenshot"
+                      alt="Muslim Atlas App Screenshot"
                       fill
                       className="object-cover object-top"
                       sizes="220px"
@@ -175,26 +205,52 @@ const LabsSection = () => {
 
             {/* Content */}
             <div className="flex flex-col justify-center">
-              <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
-                MosqueMap Mobile App
+              <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4 font-unbounded">
+                Muslim Atlas Mobile App
               </h3>
-              <TelemetryTypewriter 
-                text="A real-time, community-verified platform functioning like Waze for the Muslim community. Instantly locate nearby mosques, verify prayer times, and find halal food." 
+               <TelemetryTypewriter 
+                text="A premium, comprehensive lifestyle app designed for the Muslim community. Beyond core essentials like a full digital Quran and dynamic prayer tracking, the app features a community-driven map to instantly locate unlisted mosques and find verified halal food." 
+                onComplete={() => setIsIntroComplete(true)}
               />
 
-              <div className="glass rounded-[2rem] p-6 space-y-3 mt-8">
+              <motion.div 
+                initial="hidden"
+                animate={isIntroComplete ? "visible" : "hidden"}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.45
+                    }
+                  }
+                }}
+                className="space-y-4 mt-8"
+              >
                 {features.map((f) => (
-                  <div
-                    key={f}
-                    className="text-sm text-muted-foreground flex items-start gap-2"
+                  <motion.div
+                    key={f.title}
+                    variants={{
+                      hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
+                      visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }
+                    }}
+                    className="text-sm text-muted-foreground flex items-start gap-2 leading-relaxed"
                   >
-                    <span className="text-primary mt-0.5">✦</span>
-                    {f}
-                  </div>
+                    <span className="text-primary mt-1 shrink-0">✦</span>
+                    <div>
+                      <strong className="text-zinc-100 font-semibold">{f.title}:</strong>{" "}
+                      {f.description}
+                    </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={isIntroComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-8 flex flex-wrap gap-3"
+              >
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
                   <SiReact className="w-3.5 h-3.5 shrink-0" style={{ color: "#61DAFB" }} /> React Native
                 </div>
@@ -207,7 +263,22 @@ const LabsSection = () => {
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
                   <Layers className="w-3.5 h-3.5 shrink-0" style={{ color: "#a78bfa" }} /> State Management
                 </div>
-              </div>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={isIntroComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-8 flex justify-start"
+              >
+                <MagneticLinkButton
+                  href="https://github.com/YusufQuresh1/Muslim-Atlas"
+                  className="inline-flex items-center justify-center gap-2 text-xs md:text-sm font-bold text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-6 py-3 rounded-[2rem] transition-colors"
+                >
+                  <Github size={16} className="group-hover:rotate-12 transition-transform" />
+                  <span>View Repository</span>
+                </MagneticLinkButton>
+              </motion.div>
             </div>
           </div>
         </div>

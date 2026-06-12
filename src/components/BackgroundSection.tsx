@@ -29,7 +29,7 @@ const TelemetryTypewriter = ({ text }: { text: string }) => {
       } else {
         clearInterval(interval);
       }
-    }, 30);
+    }, 12);
     return () => clearInterval(interval);
   }, [isInView, text]);
 
@@ -142,6 +142,21 @@ const Pill = ({ label, index }: { label: string; index: number }) => (
   </motion.span>
 );
 
+const MagneticLinkButton = ({ children, href, className }: { children: React.ReactNode; href: string; className: string }) => {
+  return (
+    <motion.a
+      href={href} target="_blank" rel="noopener noreferrer"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.3 }}
+      className={`relative overflow-hidden group font-unbounded ${className}`}
+    >
+      <span className="absolute inset-0 bg-primary translate-y-[110%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0 rounded-full" />
+      <span className="relative z-10 flex items-center gap-2">{children}</span>
+    </motion.a>
+  );
+};
+
 const BackgroundSection = () => {
   let pillIndex = 0;
   const sectionRef = useRef<HTMLElement>(null);
@@ -177,7 +192,7 @@ const BackgroundSection = () => {
     <section ref={sectionRef} id="about" className="pt-16 pb-8 md:py-24 relative overflow-hidden bg-zinc-950">
       
       {/* ── Section Heading ── */}
-      <div className="w-full max-w-6xl mx-auto relative z-20 mb-12 px-6">
+      <div className="container mx-auto max-w-7xl px-6 mb-12 relative z-20">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
           02 // About the Developer
         </p>
@@ -243,7 +258,7 @@ const BackgroundSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="text-5xl md:text-7xl font-bold tracking-tight text-zinc-50 heading-glow"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-50 heading-glow font-unbounded"
               >
                 Yusuf Qureshi
               </motion.h2>
@@ -285,7 +300,7 @@ const BackgroundSection = () => {
                     {cred.icon}
                   </div>
                   <div>
-                    <p className="text-zinc-50 font-bold text-xs">{cred.title}</p>
+                    <p className="text-zinc-50 font-bold text-xs font-unbounded">{cred.title}</p>
                     <p className="text-zinc-500 text-[10px] uppercase tracking-wider">{cred.subtitle}</p>
                   </div>
                 </motion.div>
@@ -299,36 +314,30 @@ const BackgroundSection = () => {
               viewport={{ once: true }}
               className="flex items-center justify-start gap-4 mt-2"
             >
-              <a
+              <MagneticLinkButton
                 href="https://github.com/YusufQuresh1"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub Repository"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-purple-500/50 hover:bg-purple-500/10 transition-all duration-300 group"
+                className="inline-flex items-center justify-center gap-2 text-xs md:text-sm font-bold text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-6 py-3 rounded-[2rem] transition-colors"
               >
                 <Github size={16} className="group-hover:rotate-12 transition-transform" />
-                <span className="text-xs font-mono uppercase tracking-widest">GitHub</span>
-              </a>
-              <a
+                <span>GitHub</span>
+              </MagneticLinkButton>
+              <MagneticLinkButton
                 href="https://www.linkedin.com/in/mohammedyusufqureshi"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-purple-500/50 hover:bg-purple-500/10 transition-all duration-300 group"
+                className="inline-flex items-center justify-center gap-2 text-xs md:text-sm font-bold text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-6 py-3 rounded-[2rem] transition-colors"
               >
                 <Linkedin size={16} className="group-hover:-rotate-12 transition-transform" />
-                <span className="text-xs font-mono uppercase tracking-widest">LinkedIn</span>
-              </a>
+                <span>LinkedIn</span>
+              </MagneticLinkButton>
             </motion.div>
           </div>
         </div>
 
-        {/* ── Bottom Row: The Arsenal Slab ── */}
+        {/* ── Bottom Row: The Toolkit Slab ── */}
         <div className="w-full mt-10 md:mt-20 relative z-10 pointer-events-auto px-6 md:px-0">
           <InteractiveGlassCard disableTilt={isMobile} delay={0.2} className="bg-zinc-900/40 rounded-[2rem] md:rounded-[2.5rem] py-10 px-6 sm:px-8 md:p-12">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10">
               <div>
-                <h3 className="text-3xl font-bold tracking-tight text-zinc-50">The Arsenal</h3>
+                <h3 className="text-3xl font-bold tracking-tight text-zinc-50 font-unbounded">The Toolkit</h3>
                 <p className="text-zinc-500 text-sm mt-1 font-mono uppercase tracking-widest">Technical Proficiency & Tooling</p>
               </div>
               <div className="h-px flex-1 bg-gradient-to-r from-purple-500/50 to-transparent hidden md:block" />

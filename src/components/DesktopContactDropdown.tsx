@@ -2,18 +2,20 @@
 
 import { ChevronRight } from "lucide-react";
 
-export const DesktopPortfolioDropdown = ({
-  isPortfolioOpen,
+export const DesktopContactDropdown = ({
+  isContactOpen,
   dropdownPos,
-  handlePortfolioEnter,
-  handlePortfolioLeave,
+  handleContactEnter,
+  handleContactLeave,
+  openContact,
 }: {
-  isPortfolioOpen: boolean;
+  isContactOpen: boolean;
   dropdownPos: { x: number; y: number };
-  handlePortfolioEnter: () => void;
-  handlePortfolioLeave: () => void;
+  handleContactEnter: () => void;
+  handleContactLeave: () => void;
+  openContact: () => void;
 }) => {
-  if (!isPortfolioOpen) return null;
+  if (!isContactOpen) return null;
 
   return (
     <div
@@ -23,23 +25,25 @@ export const DesktopPortfolioDropdown = ({
         top: dropdownPos.y,
         transform: "translateX(-50%)",
       }}
-      onMouseEnter={handlePortfolioEnter}
-      onMouseLeave={handlePortfolioLeave}
+      onMouseEnter={handleContactEnter}
+      onMouseLeave={handleContactLeave}
     >
       <div className="h-6" />
       <div className="w-52 rounded-2xl p-2 flex flex-col shadow-2xl bg-zinc-950/80 backdrop-blur-xl border border-zinc-800 font-unbounded">
         <a
-          href="#case-studies"
+          href="#contact"
+          onClick={handleContactLeave}
           className="px-4 py-3 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between group/link"
         >
-          Case Studies
+          Support
           <ChevronRight className="w-4 h-4 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-200 text-purple-400" />
         </a>
         <a
-          href="#in-development"
+          href="#footer"
+          onClick={handleContactLeave}
           className="px-4 py-3 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between group/link"
         >
-          In Development
+          Start a Project
           <ChevronRight className="w-4 h-4 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-200 text-purple-400" />
         </a>
       </div>

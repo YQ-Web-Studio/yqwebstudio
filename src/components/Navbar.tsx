@@ -8,6 +8,7 @@ import { useContact } from "@/context/ContactContext";
 
 const MobileFlyoutMenu = dynamic(() => import("./MobileFlyoutMenu").then(m => m.MobileFlyoutMenu), { ssr: false });
 const DesktopPortfolioDropdown = dynamic(() => import("./DesktopPortfolioDropdown").then(m => m.DesktopPortfolioDropdown), { ssr: false });
+const DesktopContactDropdown = dynamic(() => import("./DesktopContactDropdown").then(m => m.DesktopContactDropdown), { ssr: false });
 
 export const Navbar = () => {
   const [isHovered, setIsHovered]     = useState(false);
@@ -16,17 +17,21 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen]   = useState(false);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
   const [dropdownPos, setDropdownPos] = useState({ x: 0, y: 0 });
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [contactDropdownPos, setContactDropdownPos] = useState({ x: 0, y: 0 });
   
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const portfolioBtnRef = useRef<HTMLButtonElement>(null);
+  const contactBtnRef = useRef<HTMLButtonElement>(null);
   const isPortfolioOpenRef = useRef(false);
+  const isContactOpenRef = useRef(false);
   const { openContact } = useContact();
 
   const resetTimer = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setIsMinimized(false);
     timeoutRef.current = setTimeout(() => {
-      if (!isHovered && !isPortfolioOpenRef.current && window.scrollY > 100) {
+      if (!isHovered && !isPortfolioOpenRef.current && !isContactOpenRef.current && window.scrollY > 100) {
         setIsMinimized(true);
       }
     }, 2000);
@@ -93,6 +98,19 @@ export const Navbar = () => {
     });
   }, [isDropdownActive]);
 
+  const updateContactDropdownPos = useCallback(() => {
+    if (typeof window === "undefined" || !contactBtnRef.current || !isDropdownActive) return;
+    requestAnimationFrame(() => {
+      if (contactBtnRef.current) {
+        const rect = contactBtnRef.current.getBoundingClientRect();
+        setContactDropdownPos({
+          x: rect.left + rect.width / 2,
+          y: rect.bottom,
+        });
+      }
+    });
+  }, [isDropdownActive]);
+
   const handlePortfolioEnter = () => {
     if (!isDropdownActive) return;
     updateDropdownPos();
@@ -103,6 +121,18 @@ export const Navbar = () => {
   const handlePortfolioLeave = () => {
     setIsPortfolioOpen(false);
     isPortfolioOpenRef.current = false;
+  };
+
+  const handleContactEnter = () => {
+    if (!isDropdownActive) return;
+    updateContactDropdownPos();
+    setIsContactOpen(true);
+    isContactOpenRef.current = true;
+  };
+
+  const handleContactLeave = () => {
+    setIsContactOpen(false);
+    isContactOpenRef.current = false;
   };
 
   return (
@@ -118,7 +148,7 @@ export const Navbar = () => {
           } ${
             isShrunk
               ? "w-[80px] md:w-[88px] h-[48px]"
-              : "w-auto md:w-[390px] h-[48px]"
+              : "w-auto md:w-auto h-[48px] md:px-6"
           } mx-auto`}
           onMouseEnter={() => {
             if (typeof window !== "undefined" && window.innerWidth < 768) return;
@@ -172,7 +202,7 @@ export const Navbar = () => {
                     </button>
                   </div>
 
-                  <div className="hidden md:flex items-center gap-7 z-0 ml-8">
+                  <div className="hidden md:flex items-center gap-7 z-0 ml-8 font-unbounded">
                     <a href="#services" className="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap">
                       Services
                     </a>
@@ -188,12 +218,15 @@ export const Navbar = () => {
                         <ChevronDown className={`w-3.5 h-3.5 opacity-60 transition-transform duration-300 ${isPortfolioOpen ? "rotate-180" : ""}`} />
                       </button>
                     </div>
-                    <a 
-                      href="#contact"
-                      className="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap"
-                    >
-                      Contact
-                    </a>
+                    <div onMouseEnter={handleContactEnter} onMouseLeave={handleContactLeave}>
+                      <button
+                        ref={contactBtnRef}
+                        className="flex items-center gap-1 text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap"
+                      >
+                        Contact
+                        <ChevronDown className={`w-3.5 h-3.5 opacity-60 transition-transform duration-300 ${isContactOpen ? "rotate-180" : ""}`} />
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -207,6 +240,14 @@ export const Navbar = () => {
         dropdownPos={dropdownPos} 
         handlePortfolioEnter={() => { setIsPortfolioOpen(true); isPortfolioOpenRef.current = true; }} 
         handlePortfolioLeave={handlePortfolioLeave} 
+      />
+
+      <DesktopContactDropdown
+        isContactOpen={isContactOpen}
+        dropdownPos={contactDropdownPos}
+        handleContactEnter={() => { setIsContactOpen(true); isContactOpenRef.current = true; }}
+        handleContactLeave={handleContactLeave}
+        openContact={openContact}
       />
 
       <MobileFlyoutMenu 

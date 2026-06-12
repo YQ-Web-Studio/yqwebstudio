@@ -57,6 +57,10 @@
   html {
     scroll-behavior: smooth;
   }
+
+  button {
+    font-family: var(--font-unbounded), sans-serif;
+  }
 }
 
 @layer utilities {

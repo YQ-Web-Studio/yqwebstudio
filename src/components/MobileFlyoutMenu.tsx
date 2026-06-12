@@ -12,6 +12,7 @@ export const MobileFlyoutMenu = ({
   setIsMenuOpen: (open: boolean) => void;
 }) => {
   const [isMobilePortfolioOpen, setIsMobilePortfolioOpen] = useState(false);
+  const [isMobileContactOpen, setIsMobileContactOpen] = useState(false);
   const { openContact } = useContact();
 
   if (!isMenuOpen) return null;
@@ -32,7 +33,7 @@ export const MobileFlyoutMenu = ({
         </button>
       </div>
 
-      <div className="flex flex-col items-center justify-center flex-1 gap-10 -mt-16 w-full px-6">
+      <div className="flex flex-col items-center justify-center flex-1 gap-10 -mt-16 w-full px-6 font-unbounded">
         <a
           href="#services"
           onClick={() => setIsMenuOpen(false)}
@@ -82,13 +83,38 @@ export const MobileFlyoutMenu = ({
           )}
         </div>
 
-        <a
-          href="#contact"
-          onClick={() => setIsMenuOpen(false)}
-          className="text-4xl font-bold tracking-tight text-white hover:text-purple-400 transition-colors whitespace-nowrap text-left"
-        >
-          Contact
-        </a>
+        <div className="flex flex-col items-center w-full">
+          <button
+            onClick={() => setIsMobileContactOpen(!isMobileContactOpen)}
+            className="text-4xl font-bold tracking-tight text-white flex items-center gap-2 whitespace-nowrap"
+          >
+            Contact
+            <ChevronDown
+              className={`w-8 h-8 opacity-50 transition-transform duration-300 ${
+                isMobileContactOpen ? "rotate-180 text-purple-400 opacity-100" : ""
+              }`}
+            />
+          </button>
+
+          {isMobileContactOpen && (
+            <div className="overflow-hidden flex flex-col items-center gap-5 pt-8 animate-in fade-in slide-in-from-top-2 duration-300">
+              <a
+                href="#contact"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-2xl font-semibold text-zinc-400 hover:text-purple-400 transition-colors whitespace-nowrap"
+              >
+                Support
+              </a>
+              <a
+                href="#footer"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-2xl font-semibold text-zinc-400 hover:text-purple-400 transition-colors whitespace-nowrap"
+              >
+                Start a Project
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -32,8 +32,8 @@ const QuestionsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-8 pb-2">
-              Have a <span className="text-gradient font-serif italic font-normal px-2">question?</span>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-8 pb-2 font-unbounded">
+              Have a <span className="text-gradient font-serif italic font-extrabold px-2 text-[1.2em] inline-block leading-normal pb-3 -mb-3 relative z-10 overflow-visible">question?</span>
             </h2>
             <p className="text-zinc-400 text-xl md:text-2xl mb-16 max-w-3xl mx-auto leading-relaxed">
               Need more info or looking for something specific? Reach out to our support desk. We&apos;re here to help you move forward.

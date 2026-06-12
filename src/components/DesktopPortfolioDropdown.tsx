@@ -27,7 +27,7 @@ export const DesktopPortfolioDropdown = ({
       onMouseLeave={handlePortfolioLeave}
     >
       <div className="h-6" />
-      <div className="w-52 rounded-2xl p-2 flex flex-col shadow-2xl bg-zinc-950/80 backdrop-blur-xl border border-zinc-800">
+      <div className="w-52 rounded-2xl p-2 flex flex-col shadow-2xl bg-zinc-950/80 backdrop-blur-xl border border-zinc-800 font-unbounded">
         <a
           href="#case-studies"
           className="px-4 py-3 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between group/link"

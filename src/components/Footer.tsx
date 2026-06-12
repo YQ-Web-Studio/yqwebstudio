@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useContact } from "@/context/ContactContext";
 import { useRef } from "react";
 import Link from "next/link";
+import { Github, Linkedin } from "lucide-react";
 
 const MagneticFooterButton = ({ onClick, children }: { onClick: () => void, children: React.ReactNode }) => {
   const ref = useRef<HTMLButtonElement>(null);
@@ -38,7 +39,7 @@ const MagneticFooterButton = ({ onClick, children }: { onClick: () => void, chil
       whileHover={{ scale: 1.03 }}
       transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.4 }}
       style={{ x: springX, y: springY }}
-      className="relative overflow-hidden group inline-flex items-center justify-center px-10 py-5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-medium text-lg transition-colors"
+      className="relative overflow-hidden group inline-flex items-center justify-center px-10 py-5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-medium text-lg transition-colors font-unbounded"
     >
       {/* Sliding background layer */}
       <span className="absolute inset-0 bg-purple-600 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0" />
@@ -59,13 +60,14 @@ const Footer = () => {
   const { openContact } = useContact();
   return (
     <motion.footer
+      id="footer"
       initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="pt-8 pb-32 md:py-24 border-t border-border/50"
     >
-      <div className="container mx-auto max-w-6xl px-6">
+      <div className="container mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Left Column: Slogan and Magnetic Call to Action Button */}
           <div className="flex flex-col items-center text-center md:items-start md:text-left">
@@ -75,10 +77,22 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl xs:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-50 heading-glow px-4 md:px-16 py-4 md:py-8 md:-ml-16 w-full md:w-fit flex flex-col items-center md:items-start text-center md:text-left"
+                className="text-4xl xs:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-50 px-4 md:px-16 py-4 md:py-8 md:-ml-16 text-center md:text-left font-syne leading-normal pb-8 overflow-visible isolate"
+                style={{ filter: 'drop-shadow(0 0 20px rgba(147, 51, 234, 0.4)) drop-shadow(0 0 40px rgba(147, 51, 234, 0.15))' }}
               >
-                <span className="block whitespace-nowrap">Ready to digitalise</span>
-                <span className="text-gradient font-serif italic font-normal block mt-2 whitespace-nowrap px-6 md:pl-0 md:pr-12 pb-4">your business?</span>
+                <span 
+                  style={{ position: 'relative', zIndex: 50, transform: 'translate3d(0, 0, 10px)' }}
+                  className="inline-block whitespace-nowrap pb-3 pt-1 leading-[1.3] overflow-visible"
+                >
+                  Ready to digitalise
+                </span>
+                <br />
+                <span 
+                  style={{ position: 'relative', zIndex: 10, transform: 'translate3d(0, 0, 0)' }}
+                  className="text-gradient font-serif italic font-normal inline-block whitespace-nowrap px-6 md:pl-0 md:pr-12 pb-4 overflow-visible -top-4 md:-top-7"
+                >
+                  your business?
+                </span>
               </motion.h2>
             </div>
             
@@ -116,6 +130,24 @@ const Footer = () => {
             © {new Date().getFullYear()} YQ Web Studio. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
+            <a 
+              href="https://github.com/YQ-Web-Studio" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-sm text-muted-foreground hover:text-white transition-colors flex items-center gap-1.5"
+            >
+              <Github size={14} />
+              <span>GitHub</span>
+            </a>
+            <a 
+              href="https://www.linkedin.com/company/yqwebstudio/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-sm text-muted-foreground hover:text-white transition-colors flex items-center gap-1.5"
+            >
+              <Linkedin size={14} />
+              <span>LinkedIn</span>
+            </a>
             <Link 
               href="/privacy-policy" 
               className="text-sm text-muted-foreground hover:text-white transition-colors"

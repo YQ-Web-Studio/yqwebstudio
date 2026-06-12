@@ -60,7 +60,7 @@ const TelemetryTypewriter = ({ text, skipAnimation = false, isActive = false }: 
       } else {
         clearInterval(interval);
       }
-    }, 30);
+    }, 12);
     return () => clearInterval(interval);
   }, [isInView, text, skipAnimation, isActive]);
 
@@ -85,12 +85,14 @@ const TelemetryTypewriter = ({ text, skipAnimation = false, isActive = false }: 
 
 const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
   return (
-    <InteractiveGlassCard delay={index * 0.1} className="p-8 flex flex-col justify-between">
-      <div className="flex flex-col h-full">
-        <service.icon className="w-8 h-8 text-primary mb-6" />
-        <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4">{service.title}</h3>
-        <div className="flex-grow">
-          <TelemetryTypewriter text={service.features.join(" // ")} isActive={true} />
+    <InteractiveGlassCard delay={index * 0.1} className="h-full">
+      <div className="p-8 flex flex-col justify-between h-full">
+        <div>
+          <service.icon className="w-8 h-8 text-primary mb-6" />
+          <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4 font-unbounded">{service.title}</h3>
+          <div className="flex-grow">
+            <TelemetryTypewriter text={service.features.join(" // ")} isActive={true} />
+          </div>
         </div>
         <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
           {service.price}
@@ -118,23 +120,23 @@ const ServicesSection = () => {
 
   return (
     <section id="services" className="py-16 md:py-24 overflow-hidden">
-      <div className="container mx-auto max-w-6xl px-6">
+      <div className="container mx-auto max-w-7xl px-6 mb-12">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           01 // Services &amp; Plans
         </p>
-        <div className="overflow-hidden mb-16">
+        <div className="overflow-hidden">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow"
+            className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow font-syne"
           >
             Built for Growth.
           </motion.h2>
         </div>
 
-        <div className="w-full">
+        <div className="w-full mt-10 md:mt-14">
           {/* ── Desktop Grid (md+) ── */}
           <div className="hidden md:grid md:grid-cols-2 gap-6">
             {services.map((service, index) => (
@@ -183,19 +185,21 @@ const ServicesSection = () => {
                 >
                   <InteractiveGlassCard 
                     disableTilt={true} 
-                    className="flex flex-col justify-between h-full bg-zinc-950/90 backdrop-blur-2xl cursor-grab active:cursor-grabbing select-none shadow-2xl"
+                    className="h-full bg-zinc-950/90 backdrop-blur-2xl cursor-grab active:cursor-grabbing select-none shadow-2xl"
                   >
-                    <div className="p-8 flex flex-col h-full">
-                      <service.icon className="w-8 h-8 text-primary mb-6" />
-                      <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4">
-                        {service.title}
-                      </h3>
-                      <div className="flex-grow">
-                        <TelemetryTypewriter 
-                          text={service.features.join(" // ")} 
-                          isActive={isFront}
-                          skipAnimation={hasBeenTyped}
-                        />
+                    <div className="p-8 flex flex-col justify-between h-full">
+                      <div>
+                        <service.icon className="w-8 h-8 text-primary mb-6" />
+                        <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4 font-unbounded">
+                          {service.title}
+                        </h3>
+                        <div className="flex-grow">
+                          <TelemetryTypewriter 
+                            text={service.features.join(" // ")} 
+                            isActive={isFront}
+                            skipAnimation={hasBeenTyped}
+                          />
+                        </div>
                       </div>
                       <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
                         {service.price}

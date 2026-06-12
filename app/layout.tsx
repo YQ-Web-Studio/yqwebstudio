@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display, Syne, Space_Grotesk, Unbounded } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { QueryClientProviderWrapper } from "@/components/QueryClientProviderWrapper";
 import { Navbar } from "@/components/Navbar";
@@ -18,6 +19,27 @@ const playfair = Playfair_Display({
   subsets: ['latin'], 
   style: ['italic', 'normal'], 
   variable: '--font-playfair',
+  display: 'swap',
+  preload: true,
+});
+
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
+  display: 'swap',
+  preload: true,
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+  preload: true,
+});
+
+const unbounded = Unbounded({
+  subsets: ['latin'],
+  variable: '--font-unbounded',
   display: 'swap',
   preload: true,
 });
@@ -57,8 +79,24 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="/" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet" />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${playfair.variable} ${syne.variable} ${spaceGrotesk.variable} ${unbounded.variable} font-sans antialiased`} suppressHydrationWarning>
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XREECV4SNL"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-XREECV4SNL');
+          `}
+        </Script>
+
         <QueryClientProviderWrapper>
           <ContactProvider>
             <Navbar />

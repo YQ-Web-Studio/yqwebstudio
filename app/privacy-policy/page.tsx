@@ -35,7 +35,7 @@ export default function PrivacyPolicyPage() {
                 Privacy Policy
               </h1>
               <p className="text-zinc-500 font-medium">
-                Last updated March 14, 2026
+                Last updated June 12, 2026
               </p>
             </header>
 
@@ -69,7 +69,7 @@ export default function PrivacyPolicyPage() {
                   <strong>Do we process any sensitive personal information?</strong> We do not process sensitive personal information.
                 </li>
                 <li>
-                  <strong>Do we collect any information from third parties?</strong> We do not collect any information from third parties.
+                  <strong>Do we collect any information from third parties?</strong> We use Google Analytics, a third-party analytics service, to collect anonymised usage data about how visitors interact with our website.
                 </li>
                 <li>
                   <strong>How do we process your information?</strong> We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law.
@@ -100,6 +100,13 @@ export default function PrivacyPolicyPage() {
                 <li>email addresses</li>
                 <li>company name</li>
               </ul>
+              <h3 className="text-xl font-medium text-white mt-6">Information automatically collected</h3>
+              <p>
+                <em>In Short: Some information — such as your Internet Protocol (IP) address and/or browser and device characteristics — is collected automatically when you visit our Services.</em>
+              </p>
+              <p>
+                We automatically collect certain information when you visit, use, or navigate the Services. This information does not reveal your specific identity (like your name or contact information) but may include device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, information about how and when you use our Services, and other technical information. This information is primarily used to maintain the security and operation of our Services, and for our internal analytics and reporting purposes.
+              </p>
               <p>
                 <strong>Sensitive Information.</strong> We do not process sensitive information.
               </p>
@@ -132,9 +139,41 @@ export default function PrivacyPolicyPage() {
               </ul>
             </section>
 
+            <section className="space-y-4 pt-8 border-t border-zinc-900">
+              <h2 className="text-2xl font-semibold text-white">3. ANALYTICS &amp; TRACKING TECHNOLOGIES</h2>
+              <p>
+                <em>In Short: We use Google Analytics to understand how visitors use our website. No personally identifiable information is sent to Google.</em>
+              </p>
+              <p>
+                We use <strong>Google Analytics</strong> (provided by Google LLC, &quot;Google&quot;) to collect aggregated, anonymised information about how visitors interact with our website. Google Analytics uses cookies and similar technologies to collect data such as:
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Pages visited and time spent on each page</li>
+                <li>Approximate geographic location (country / city level)</li>
+                <li>Device type, browser, and operating system</li>
+                <li>Referral source (how you arrived at our site)</li>
+                <li>Interactions such as clicks and scroll depth</li>
+              </ul>
+              <p>
+                We have enabled <strong>IP anonymisation</strong> so that your full IP address is never stored or shared with Google. The data collected is used solely to improve our website content and user experience.
+              </p>
+              <h3 className="text-xl font-medium text-white mt-4">Your choices</h3>
+              <p>
+                You can opt out of Google Analytics tracking at any time by:
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">Google Analytics Opt-out Browser Add-on</a></li>
+                <li>Enabling &quot;Do Not Track&quot; or equivalent privacy settings in your browser</li>
+                <li>Adjusting your browser&apos;s cookie preferences to block third-party cookies</li>
+              </ul>
+              <p>
+                For more information on how Google processes data collected via Google Analytics, please review <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">Google&apos;s Privacy Policy</a>.
+              </p>
+            </section>
+
             <footer className="pt-12 mt-12 border-t border-zinc-900 text-zinc-500 text-sm italic">
               <p>
-                This privacy policy was generated and adapted for YQ Web Studio on March 14, 2026.
+                This privacy policy was last updated for YQ Web Studio on June 12, 2026.
               </p>
             </footer>
           </div>

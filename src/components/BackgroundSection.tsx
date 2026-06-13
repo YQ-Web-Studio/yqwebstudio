@@ -194,7 +194,7 @@ const BackgroundSection = () => {
       {/* ── Section Heading ── */}
       <div className="container mx-auto max-w-7xl px-6 mb-12 relative z-20">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
-          02 // About the Developer
+          03 // About the Developer
         </p>
       </div>
 

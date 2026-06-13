@@ -178,7 +178,7 @@ const WorkSection = () => {
   }, []);
 
   return (
-    <section id="case-studies" className="py-16 md:py-24 relative overflow-hidden bg-zinc-950/20">
+    <section id="case-studies" className="pt-8 pb-16 md:pt-12 md:pb-24 relative overflow-hidden bg-zinc-950/20">
       <div className="container mx-auto max-w-7xl px-6 mb-12">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           02 // Selected Work

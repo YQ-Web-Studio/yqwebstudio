@@ -65,7 +65,7 @@ const Footer = () => {
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="pt-8 pb-32 md:py-24 border-t border-border/50"
+      className="pt-8 pb-32 md:py-24 border-t border-border/50 bg-zinc-950 relative z-10"
     >
       <div className="container mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">

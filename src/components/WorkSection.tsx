@@ -90,6 +90,7 @@ interface Project {
   stack: string[];
   link: string;
   folder: string;
+  screenshotFallback: string;
 }
 
 const projects: Project[] = [
@@ -101,7 +102,8 @@ const projects: Project[] = [
     description: "Official website of Faizane Madina Masjid Southend (Dawat-e-Islami). View daily prayer times, event details and more. Serving 200+ community members. Engineered to reduce manual workload with integrated media management.",
     stack: ["React", "Strapi CMS", "PostgreSQL", "Cloudinary", "Oracle Cloud", "Vercel"],
     link: "https://faizanemadinasouthend.co.uk",
-    folder: "faizanemadina"
+    folder: "faizanemadina",
+    screenshotFallback: "/faizane-madina-screenshots/Screenshot 2026-03-06 172800.png"
   },
   {
     id: "discount-products",
@@ -111,7 +113,8 @@ const projects: Project[] = [
     description: "An independent online storefront built to cleanly organize and display a vast 14,000-item inventory. By establishing a direct sales channel away from third-party marketplaces like eBay, the platform enables complete catalog ownership, avoids restrictive listing fees, and builds long-term brand equity.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "WordPress", "WooCommerce", "GraphQL", "REST API", "Vercel", "Cloudflare", "PHP", "Python"],
     link: "https://www.discountproducts.co.uk",
-    folder: "discountproducts"
+    folder: "discountproducts",
+    screenshotFallback: "/1773065951275.png"
   }
 ];
 
@@ -123,6 +126,7 @@ const WorkSection = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
 
   const [galleries, setGalleries] = useState<Record<string, string[]>>({});
   const [loadingGallery, setLoadingGallery] = useState(false);
@@ -163,7 +167,9 @@ const WorkSection = () => {
   // Close dropdown on outside click
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      const clickedOutsideDesktop = dropdownRef.current && !dropdownRef.current.contains(e.target as Node);
+      const clickedOutsideMobile = mobileDropdownRef.current && !mobileDropdownRef.current.contains(e.target as Node);
+      if (clickedOutsideDesktop && clickedOutsideMobile) {
         setIsDropdownOpen(false);
       }
     };
@@ -175,7 +181,7 @@ const WorkSection = () => {
     <section id="case-studies" className="py-16 md:py-24 relative overflow-hidden bg-zinc-950/20">
       <div className="container mx-auto max-w-7xl px-6 mb-12">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
-          03 // Selected Work
+          02 // Selected Work
         </p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -192,13 +198,167 @@ const WorkSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-muted-foreground text-lg md:text-xl max-w-6xl mt-4 font-unbounded"
+          className="text-muted-foreground text-sm sm:text-base md:text-xl max-w-6xl mt-4 font-sans md:font-unbounded"
         >
           Explore live previews of our custom-engineered web platforms in real-time.
         </motion.p>
       </div>
 
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-6">
+      {/* ── Mobile Layout (< lg) ── */}
+      <div className="w-full max-w-7xl mx-auto px-4 lg:hidden flex flex-col gap-6">
+        {/* 1. Dropdown Platform Selector at the top */}
+        <div className={`flex flex-col gap-2.5 relative ${isDropdownOpen ? "z-40" : "z-10"}`} ref={mobileDropdownRef}>
+          <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest pl-1">
+            Select Platform
+          </span>
+          {/* Dropdown Trigger */}
+          <button
+            onClick={() => setIsDropdownOpen((o) => !o)}
+            className="w-full bg-zinc-900/40 border border-zinc-900 hover:border-zinc-800 p-4 rounded-2xl flex items-center justify-between text-left transition-all duration-300 group shadow-md"
+          >
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-zinc-950 border border-zinc-850">
+                {activeProject.categoryIcon}
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs font-bold text-zinc-400 tracking-wider">
+                  {activeProject.category}
+                </span>
+                <span className="text-sm font-extrabold text-white font-unbounded">
+                  {activeProject.title.split("|")[0].trim()}
+                </span>
+              </div>
+            </div>
+            <ChevronDown className={`w-5 h-5 text-zinc-500 transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : ""}`} />
+          </button>
+
+          {/* Dropdown Options List */}
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute top-full mt-1.5 left-0 w-full bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.9)] z-50"
+              >
+                <div className="p-2 flex flex-col gap-1">
+                  {projects.map((proj) => {
+                    const isSelected = proj.id === activeProjectId;
+                    return (
+                      <button
+                        key={proj.id}
+                        onClick={() => {
+                          setActiveProjectId(proj.id);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`w-full text-left p-3.5 rounded-xl flex items-center justify-between transition-colors ${
+                          isSelected ? "bg-zinc-900 text-white" : "hover:bg-zinc-900/40 text-zinc-400 hover:text-zinc-200"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 rounded-lg bg-zinc-950 border border-zinc-850">
+                            {proj.categoryIcon}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className={`text-xs font-bold ${isSelected ? "text-white" : "text-zinc-250"}`}>
+                              {proj.category}
+                            </span>
+                            <span className={`text-[11px] font-bold font-unbounded ${isSelected ? "text-zinc-300" : "text-zinc-400"}`}>
+                              {proj.title.split("|")[0].trim()}
+                            </span>
+                          </div>
+                        </div>
+                        {isSelected && <span className="flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* 2. Interactive Workspace Mockup (Laptop with screenshot fallback, no tooltip indicator) */}
+        <InteractiveWorkspace 
+          key={`mobile-${activeProject.id}`} 
+          url={activeProject.link} 
+          title={activeProject.title} 
+          screenshotUrl={currentGallery[0] || activeProject.screenshotFallback}
+        />
+
+        {/* 3. Project Details Card with Action Buttons moved below description */}
+        <div className="glass rounded-3xl p-6 border border-zinc-900 bg-zinc-950/40 flex flex-col gap-5">
+          <div className="border-b border-zinc-900 pb-3">
+            <h3 className="text-xl font-extrabold tracking-tight text-zinc-50 leading-tight font-unbounded">
+              {activeProject.title.split("|")[0].trim()}
+            </h3>
+          </div>
+          <p className="text-zinc-200 text-sm leading-relaxed font-medium">
+            {activeProject.description}
+          </p>
+
+          {/* Action buttons (underneath description) */}
+          <div className="grid gap-3 w-full grid-cols-2 mt-1">
+            <MagneticLinkButton
+              href={activeProject.link}
+              className="inline-flex items-center justify-center gap-2 text-xs font-bold text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-4 py-3 rounded-[2rem] transition-colors w-full"
+            >
+              <span>Launch Site</span>
+              <ExternalLink className="w-3 h-3 text-zinc-400" />
+            </MagneticLinkButton>
+
+            {showGalleryButton && (
+              <MagneticActionButton
+                onClick={() => {
+                  if (!loadingGallery) {
+                    if (currentGallery.length > 0) {
+                      setActiveGallery(currentGallery);
+                    } else {
+                      toast.info("Gallery screenshots for this project are currently being prepared.");
+                    }
+                  }
+                }}
+                className={`inline-flex items-center justify-center gap-2 text-xs font-bold text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-4 py-3 rounded-[2rem] transition-colors w-full ${
+                  loadingGallery ? "opacity-50" : ""
+                }`}
+                disabled={loadingGallery}
+              >
+                {loadingGallery ? (
+                  <>
+                    <div className="w-3.5 h-3.5 border-2 border-zinc-800 border-t-zinc-400 rounded-full animate-spin" />
+                    <span>Loading...</span>
+                  </>
+                ) : (
+                  <>
+                    <ImageIcon className="w-3.5 h-3.5" />
+                    <span>View Gallery</span>
+                  </>
+                )}
+              </MagneticActionButton>
+            )}
+          </div>
+
+          {/* Tech Stack */}
+          <div className="flex flex-col gap-2 pt-4 border-t border-zinc-900">
+            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Built With</span>
+            <div className="flex flex-wrap gap-1.5">
+              {activeProject.stack.map((tech) => (
+                <div
+                  key={tech}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-zinc-900/50 border border-zinc-800 text-[11px] font-semibold text-zinc-300"
+                >
+                  {stackIconMap[tech] ?? <Globe className="w-3 h-3" />}
+                  {tech}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Desktop Layout (lg+) ── */}
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-6 hidden lg:block">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* LEFT COLUMN: Dynamic Device Mockup Preview Workspace & Standard Info Badge */}
@@ -236,7 +396,12 @@ const WorkSection = () => {
                 </div>
               </div>
 
-              <InteractiveWorkspace key={activeProject.id} url={activeProject.link} title={activeProject.title} />
+              <InteractiveWorkspace 
+                key={activeProject.id} 
+                url={activeProject.link} 
+                title={activeProject.title} 
+                screenshotUrl={currentGallery[0] || activeProject.screenshotFallback}
+              />
             </div>
 
             {/* Under the laptop: Action Buttons */}

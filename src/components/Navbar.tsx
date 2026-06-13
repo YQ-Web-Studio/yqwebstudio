@@ -137,7 +137,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-3 md:top-6 left-0 right-0 z-[60] flex justify-center pointer-events-none">
+      <div className="fixed top-2 md:top-4 left-0 right-0 z-[60] flex justify-center pointer-events-none">
         <motion.div
           layout
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -175,7 +175,7 @@ export const Navbar = () => {
           >
             <motion.a
               layout="position"
-              href="#"
+              href="/"
               aria-label="YQ Web Studio - Return to Top"
               className="font-bold tracking-tight text-white shrink-0 hover:-translate-y-[1px] transition-transform duration-300 z-10 text-lg"
               onClick={() => setIsMenuOpen(false)}
@@ -206,9 +206,6 @@ export const Navbar = () => {
                     <a href="#services" className="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap">
                       Services
                     </a>
-                    <a href="#about" className="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap">
-                      About
-                    </a>
                     <div onMouseEnter={handlePortfolioEnter} onMouseLeave={handlePortfolioLeave}>
                       <button
                         ref={portfolioBtnRef}
@@ -218,6 +215,9 @@ export const Navbar = () => {
                         <ChevronDown className={`w-3.5 h-3.5 opacity-60 transition-transform duration-300 ${isPortfolioOpen ? "rotate-180" : ""}`} />
                       </button>
                     </div>
+                    <a href="#about" className="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap">
+                      About
+                    </a>
                     <div onMouseEnter={handleContactEnter} onMouseLeave={handleContactLeave}>
                       <button
                         ref={contactBtnRef}

@@ -7,6 +7,7 @@ import { Navbar } from "@/components/Navbar";
 import { ContactProvider } from "@/context/ContactContext";
 import { ContactDrawer } from "@/components/ContactDrawer";
 import { GlobalToasters } from "@/components/GlobalToasters";
+import { GlobalDecorations } from "@/components/GlobalDecorations";
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -99,6 +100,7 @@ export default function RootLayout({
 
         <QueryClientProviderWrapper>
           <ContactProvider>
+            <GlobalDecorations />
             <Navbar />
             <main id="main-content">
               {children}

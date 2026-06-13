@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface ContactContextType {
   isOpen: boolean;
@@ -13,10 +14,15 @@ const ContactContext = createContext<ContactContextType | undefined>(undefined);
 
 export const ContactProvider = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
-  const openContact = () => setIsOpen(true);
+  const openContact = () => {
+    router.push("/quote");
+  };
   const closeContact = () => setIsOpen(false);
-  const toggleContact = () => setIsOpen((prev) => !prev);
+  const toggleContact = () => {
+    router.push("/quote");
+  };
 
   return (
     <ContactContext.Provider value={{ isOpen, openContact, closeContact, toggleContact }}>

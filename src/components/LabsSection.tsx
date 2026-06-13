@@ -79,8 +79,18 @@ const MagneticLinkButton = ({ children, href, className }: { children: React.Rea
 
 const LabsSection = () => {
   const [isIntroComplete, setIsIntroComplete] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
     const { left, top } = currentTarget.getBoundingClientRect();
@@ -97,7 +107,7 @@ const LabsSection = () => {
   `;
 
   return (
-    <section id="in-development" className="py-16 md:py-24">
+    <section id="in-development" className="pt-16 pb-0 md:py-24 bg-zinc-950">
       <div className="container mx-auto max-w-7xl px-6 mb-12">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           04 // Current Engineering
@@ -119,9 +129,9 @@ const LabsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-muted-foreground text-lg md:text-xl max-w-6xl mt-4 font-unbounded"
+          className="text-muted-foreground text-xs sm:text-base md:text-xl max-w-6xl mt-4 font-sans md:font-unbounded"
         >
-          A look behind the scenes at the platforms and applications I am currently building.
+          Aside from client projects for YQ Web Studio, here is a look behind the scenes at other software applications I am currently engineering.
         </motion.p>
       </div>
 
@@ -215,7 +225,7 @@ const LabsSection = () => {
 
               <motion.div 
                 initial="hidden"
-                animate={isIntroComplete ? "visible" : "hidden"}
+                animate={(isMobile || isIntroComplete) ? "visible" : "hidden"}
                 variants={{
                   hidden: { opacity: 0 },
                   visible: {
@@ -234,7 +244,7 @@ const LabsSection = () => {
                       hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
                       visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }
                     }}
-                    className="text-sm text-muted-foreground flex items-start gap-2 leading-relaxed"
+                    className="text-sm text-muted-foreground flex items-start gap-2.5 leading-relaxed p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 backdrop-blur-md shadow-md md:bg-transparent md:border-transparent md:backdrop-blur-none md:p-0 md:shadow-none"
                   >
                     <span className="text-primary mt-1 shrink-0">✦</span>
                     <div>
@@ -247,8 +257,8 @@ const LabsSection = () => {
 
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
-                animate={isIntroComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                animate={(isMobile || isIntroComplete) ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.8, delay: isMobile ? 0.3 : 1.2, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-8 flex flex-wrap gap-3"
               >
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
@@ -267,8 +277,8 @@ const LabsSection = () => {
 
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
-                animate={isIntroComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                transition={{ duration: 0.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                animate={(isMobile || isIntroComplete) ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.8, delay: isMobile ? 0.4 : 1.4, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-8 flex justify-start"
               >
                 <MagneticLinkButton

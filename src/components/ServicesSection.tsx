@@ -140,7 +140,7 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="pt-16 pb-8 md:py-24 overflow-hidden">
+    <section id="services" className="pt-16 pb-0 md:pt-24 md:pb-0 overflow-hidden">
       <div className="container mx-auto max-w-7xl px-6 mb-12">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           01 // Services &amp; Plans

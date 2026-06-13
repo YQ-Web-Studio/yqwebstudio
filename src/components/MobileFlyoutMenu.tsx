@@ -42,14 +42,6 @@ export const MobileFlyoutMenu = ({
           Services
         </a>
 
-        <a
-          href="#about"
-          onClick={() => setIsMenuOpen(false)}
-          className="text-4xl font-bold tracking-tight text-white hover:text-purple-400 transition-colors whitespace-nowrap"
-        >
-          About
-        </a>
-
         <div className="flex flex-col items-center w-full">
           <button
             onClick={() => setIsMobilePortfolioOpen(!isMobilePortfolioOpen)}
@@ -83,6 +75,14 @@ export const MobileFlyoutMenu = ({
           )}
         </div>
 
+        <a
+          href="#about"
+          onClick={() => setIsMenuOpen(false)}
+          className="text-4xl font-bold tracking-tight text-white hover:text-purple-400 transition-colors whitespace-nowrap"
+        >
+          About
+        </a>
+
         <div className="flex flex-col items-center w-full">
           <button
             onClick={() => setIsMobileContactOpen(!isMobileContactOpen)}
@@ -106,7 +106,7 @@ export const MobileFlyoutMenu = ({
                 Support
               </a>
               <a
-                href="#footer"
+                href="/quote"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-2xl font-semibold text-zinc-400 hover:text-purple-400 transition-colors whitespace-nowrap"
               >

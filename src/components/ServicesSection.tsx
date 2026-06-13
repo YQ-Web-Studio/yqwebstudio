@@ -3,31 +3,34 @@
 import { motion, useInView } from "framer-motion";
 import { Code, Shield } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { InteractiveGlassCard } from "@/components/InteractiveGlassCard";
+
+const MotionLink = motion(Link);
 
 const services = [
   {
     icon: Code,
     title: "Bespoke Web Design",
     features: [
-      "Custom functionality & integrations",
-      "Next.js-powered frontends",
-      "Fully responsive design",
-      "SEO optimisation & performance",
-      "CMS integration",
+      "custom integrations",
+      "Next.js-powered architecture",
+      "fully responsive layouts",
+      "SEO & speed tuneups",
+      "CMS dashboards",
     ],
-    price: "Custom Quote",
+    price: "from £400",
     highlight: false,
   },
   {
     icon: Shield,
     title: "The Website Care Plan",
     features: [
-      "Premium managed hosting",
-      "SSL certificate & security",
-      "Monthly content updates",
-      "Performance monitoring",
-      "Priority support",
+      "premium managed hosting",
+      "SSL certificate & setup",
+      "monthly content updates",
+      "performance monitoring",
+      "priority support",
     ],
     price: "from £10 / month",
     highlight: true,
@@ -91,12 +94,26 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
           <service.icon className="w-8 h-8 text-primary mb-6" />
           <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4 font-unbounded">{service.title}</h3>
           <div className="flex-grow">
-            <TelemetryTypewriter text={service.features.join(" // ")} isActive={true} />
+            <TelemetryTypewriter text={"Can include: " + service.features.join(" // ")} isActive={true} />
           </div>
         </div>
-        <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
-          {service.price}
-        </p>
+        <div className="mt-8 border-t border-border/50 pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <p className="text-lg font-semibold text-foreground">
+            {service.price}
+          </p>
+          {service.title === "Bespoke Web Design" && (
+            <MotionLink
+              href="/quote"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.3 }}
+              className="relative overflow-hidden group/btn font-unbounded px-5 py-2.5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-medium text-xs transition-colors inline-block text-center z-10"
+            >
+              <span className="absolute inset-0 bg-primary translate-y-[110%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0 rounded-full" />
+              <span className="relative z-10 block">Get a Quote</span>
+            </MotionLink>
+          )}
+        </div>
       </div>
     </InteractiveGlassCard>
   );
@@ -118,8 +135,12 @@ const ServicesSection = () => {
     }
   };
 
+  const handleMobileQuoteClick = (e: React.MouseEvent) => {
+    // Prevent drag propagation or other issues on mobile if any, though standard Link works well
+  };
+
   return (
-    <section id="services" className="py-16 md:py-24 overflow-hidden">
+    <section id="services" className="pt-16 pb-8 md:py-24 overflow-hidden">
       <div className="container mx-auto max-w-7xl px-6 mb-12">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           01 // Services &amp; Plans
@@ -145,8 +166,8 @@ const ServicesSection = () => {
           </div>
 
           {/* ── Mobile Swipeable Stack (< md) ── */}
-          <div className="relative md:hidden mx-auto max-w-[calc(100vw-80px)] my-4" style={{ height: 500 }}>
-            <p className="absolute -top-10 left-0 right-0 text-center text-xs text-zinc-400 font-mono uppercase tracking-widest select-none pointer-events-none mb-12">
+          <div className="relative md:hidden mx-auto max-w-[calc(100vw-80px)] mt-20 mb-4" style={{ height: 500 }}>
+            <p className="absolute -top-12 left-0 right-0 text-center text-xs text-zinc-400 font-mono uppercase tracking-widest select-none pointer-events-none mb-12">
               swipe to explore →
             </p>
             {services.map((service, i) => {
@@ -195,15 +216,29 @@ const ServicesSection = () => {
                         </h3>
                         <div className="flex-grow">
                           <TelemetryTypewriter 
-                            text={service.features.join(" // ")} 
+                            text={"Can include: " + service.features.join(" // ")} 
                             isActive={isFront}
                             skipAnimation={hasBeenTyped}
                           />
                         </div>
                       </div>
-                      <p className="mt-8 text-lg font-semibold text-foreground border-t border-border/50 pt-6">
-                        {service.price}
-                      </p>
+                      <div className="mt-8 border-t border-border/50 pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <p className="text-lg font-semibold text-foreground">
+                          {service.price}
+                        </p>
+                        {service.title === "Bespoke Web Design" && (
+                          <MotionLink
+                            href="/quote"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.3 }}
+                            className="relative overflow-hidden group/btn font-unbounded px-5 py-2.5 rounded-full bg-zinc-900 border border-zinc-800 text-white font-medium text-xs transition-colors inline-block text-center z-10"
+                          >
+                            <span className="absolute inset-0 bg-primary translate-y-[110%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0 rounded-full" />
+                            <span className="relative z-10 block">Get a Quote</span>
+                          </MotionLink>
+                        )}
+                      </div>
                     </div>
                   </InteractiveGlassCard>
                 </motion.div>
@@ -212,7 +247,7 @@ const ServicesSection = () => {
           </div>
 
           {/* ── Mobile Stack Pagination Indicators ── */}
-          <div className="flex md:hidden justify-center items-center gap-2 mt-12">
+          <div className="flex md:hidden justify-center items-center gap-2 mt-8">
             {services.map((service, index) => {
               const isActive = index === currentIndex;
               return (

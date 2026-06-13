@@ -15,6 +15,7 @@ const GalleryOverlay = ({ images, isOpen, onClose }: GalleryOverlayProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [showUI, setShowUI] = useState(true);
 
   useEffect(() => {
     setMounted(true);
@@ -24,6 +25,7 @@ const GalleryOverlay = ({ images, isOpen, onClose }: GalleryOverlayProps) => {
     if (isOpen) {
       setCurrentIndex(0);
       setDirection(0);
+      setShowUI(true);
     }
   }, [isOpen]);
 
@@ -97,43 +99,61 @@ const GalleryOverlay = ({ images, isOpen, onClose }: GalleryOverlayProps) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          // CHANGED: bg-zinc-950 forces a fully solid, pitch-black background on mobile.
           className="fixed inset-0 z-[99999] flex items-center justify-center bg-zinc-950 md:bg-zinc-950/95 backdrop-blur-2xl p-0 md:p-12"
           onClick={onClose}
         >
           {/* Header Controls */}
-          <div className="absolute top-4 md:top-6 left-4 md:left-6 right-4 md:right-6 flex items-center justify-between z-[10001] pointer-events-none">
-            <div className="text-zinc-400 font-mono text-xs tracking-widest bg-zinc-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-zinc-800 pointer-events-auto shadow-xl">
-              {currentIndex + 1} / {images.length}
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onClose();
-              }}
-              className="p-3 bg-zinc-900/80 backdrop-blur-md hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors pointer-events-auto shadow-xl"
-            >
-              <X size={20} />
-            </button>
-          </div>
+          <AnimatePresence>
+            {showUI && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-4 md:top-6 left-4 md:left-6 right-4 md:right-6 flex items-center justify-between z-[10001] pointer-events-none"
+              >
+                <div className="text-zinc-400 font-mono text-xs tracking-widest bg-zinc-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-zinc-800 pointer-events-auto shadow-xl">
+                  {currentIndex + 1} / {images.length}
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClose();
+                  }}
+                  className="p-3 bg-zinc-900/80 backdrop-blur-md hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors pointer-events-auto shadow-xl"
+                >
+                  <X size={20} />
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          {/* Navigation Arrows (Hidden on Mobile) */}
-          {images.length > 1 && (
-            <div className="hidden md:contents">
-              <button
-                onClick={handlePrev}
-                className="absolute left-12 top-1/2 -translate-y-1/2 p-4 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-[10001] shadow-2xl pointer-events-auto"
+          {/* Navigation Arrows (Always visible, smaller and closer to edges on mobile) */}
+          <AnimatePresence>
+            {showUI && images.length > 1 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
               >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={handleNext}
-                className="absolute right-12 top-1/2 -translate-y-1/2 p-4 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-[10001] shadow-2xl pointer-events-auto"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-          )}
+                <button
+                  onClick={handlePrev}
+                  className="absolute left-3 md:left-12 top-1/2 -translate-y-1/2 p-2.5 md:p-4 bg-zinc-900/70 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-[10001] shadow-2xl pointer-events-auto"
+                >
+                  <ChevronLeft size={20} className="block md:hidden" />
+                  <ChevronLeft size={24} className="hidden md:block" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="absolute right-3 md:right-12 top-1/2 -translate-y-1/2 p-2.5 md:p-4 bg-zinc-900/70 hover:bg-zinc-800 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-[10001] shadow-2xl pointer-events-auto"
+                >
+                  <ChevronRight size={20} className="block md:hidden" />
+                  <ChevronRight size={24} className="hidden md:block" />
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Main Image Container */}
           <div 
@@ -156,7 +176,10 @@ const GalleryOverlay = ({ images, isOpen, onClose }: GalleryOverlayProps) => {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowUI((prev) => !prev);
+                }}
                 className="relative w-full md:w-auto max-w-full max-h-full md:max-h-[85vh] object-contain rounded-none md:rounded-2xl shadow-none md:shadow-2xl border-none md:border md:border-white/5 cursor-grab active:cursor-grabbing pointer-events-auto select-none bg-transparent md:bg-zinc-950/20"
                 draggable={false}
               />

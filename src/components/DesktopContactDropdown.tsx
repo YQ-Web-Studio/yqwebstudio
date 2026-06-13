@@ -39,7 +39,7 @@ export const DesktopContactDropdown = ({
           <ChevronRight className="w-4 h-4 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-200 text-purple-400" />
         </a>
         <a
-          href="#footer"
+          href="/quote"
           onClick={handleContactLeave}
           className="px-4 py-3 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between group/link"
         >

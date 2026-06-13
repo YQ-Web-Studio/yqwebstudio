@@ -1,16 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { HeroButtons } from "./HeroInteractions";
-
-const HeroDecorations = dynamic(() => import("./HeroInteractions").then((mod) => mod.HeroDecorations), { ssr: false });
 
 const HeroSection = () => {
   return (
     <section className="relative flex min-h-[100svh] md:min-h-screen items-center justify-center pt-16 md:pt-24 pb-16 md:pb-24 overflow-hidden">
-      <HeroDecorations />
-
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto w-full pointer-events-none pt-12 md:pt-20">
         <motion.span
           initial={{ opacity: 0, y: 15, filter: "blur(8px)" }}
@@ -84,6 +79,21 @@ const HeroSection = () => {
           <HeroButtons />
         </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-10"
+      >
+        <p className="text-[10px] font-mono uppercase tracking-[0.25em] text-zinc-500">Scroll</p>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="w-px h-12 bg-gradient-to-b from-purple-500 to-transparent"
+        />
+      </motion.div>
     </section>
   );
 };

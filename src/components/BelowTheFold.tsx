@@ -43,8 +43,8 @@ export const BelowTheFold = () => {
                 style={{ contentVisibility: 'auto', containIntrinsicSize: '0 3000px' } as any}
             >
                 <ServicesSection />
-                <BackgroundSection />
                 <WorkSection />
+                <BackgroundSection />
                 <LabsSection />
                 <QuestionsSection />
                 <Footer />

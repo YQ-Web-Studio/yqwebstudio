@@ -11,6 +11,7 @@ interface Project {
   description: string;
   url: string;
   technologies: string[];
+  screenshotFallback: string;
 }
 
 const projects: Project[] = [
@@ -21,6 +22,7 @@ const projects: Project[] = [
       "A complete custom-engineered web platform built for Faizane Madina Masjid Southend (Dawat-e-Islami). Features precise daily prayer times scheduling, event registration, dynamic media galleries, and cloud-backed content management systems.",
     url: "https://faizanemadinasouthend.co.uk",
     technologies: ["Next.js", "Strapi CMS", "PostgreSQL", "Cloudinary", "Oracle Cloud"],
+    screenshotFallback: "/faizane-madina-screenshots/Screenshot 2026-03-06 172800.png"
   },
   {
     id: "discount-products",
@@ -29,6 +31,7 @@ const projects: Project[] = [
       "A highly optimized e-commerce platform and storefront designed for rapid product discovery, filtering, and responsive catalog browsing with clean user flows.",
     url: "https://www.discountproducts.co.uk",
     technologies: ["React", "Next.js", "Tailwind CSS", "E-commerce Engine"],
+    screenshotFallback: "/1773065951275.png"
   }
 ];
 
@@ -114,7 +117,12 @@ export default function CaseStudiesDemoPage() {
 
         {/* Interactive Workspace Component */}
         <div className="mt-4 border border-zinc-900 rounded-3xl bg-zinc-900/10 p-2 md:p-6 backdrop-blur-[2px]">
-          <InteractiveWorkspace key={activeProject.id} url={activeProject.url} title={activeProject.title} />
+          <InteractiveWorkspace 
+            key={activeProject.id} 
+            url={activeProject.url} 
+            title={activeProject.title} 
+            screenshotUrl={activeProject.screenshotFallback}
+          />
         </div>
 
         {/* Security / CSP Notice */}

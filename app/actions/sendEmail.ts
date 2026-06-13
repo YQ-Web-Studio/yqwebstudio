@@ -4,6 +4,16 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function escapeHtml(text: string): string {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export async function sendContactEmail(formData: FormData) {
   const name = formData.get('name') as string;
   const email = formData.get('email') as string;
@@ -15,21 +25,27 @@ export async function sendContactEmail(formData: FormData) {
     return { error: 'Please fill in all required fields.' };
   }
 
+  const escapedName = escapeHtml(name);
+  const escapedEmail = escapeHtml(email);
+  const escapedBusinessName = escapeHtml(businessName);
+  const escapedPrimaryGoal = escapeHtml(primaryGoal);
+  const escapedProjectDetails = escapeHtml(projectDetails);
+
   try {
     const { data, error } = await resend.emails.send({
       from: 'YQ Web Studio <noreply@notifications.yqwebstudio.com>',
       to: 'projects@yqwebstudio.com',
-      subject: `New Project Enquiry from ${name}`,
+      subject: `New Project Enquiry from ${escapedName}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e1e1e1; border-radius: 10px;">
           <h2 style="color: #333; border-bottom: 2px solid #5b21b6; padding-bottom: 10px;">New Project Enquiry</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Business Name:</strong> ${businessName || 'N/A'}</p>
-          <p><strong>Primary Goal:</strong> ${primaryGoal}</p>
+          <p><strong>Name:</strong> ${escapedName}</p>
+          <p><strong>Email:</strong> ${escapedEmail}</p>
+          <p><strong>Business Name:</strong> ${escapedBusinessName || 'N/A'}</p>
+          <p><strong>Primary Goal:</strong> ${escapedPrimaryGoal}</p>
           <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px;">
             <p><strong>Project Details:</strong></p>
-            <p style="white-space: pre-wrap;">${projectDetails}</p>
+            <p style="white-space: pre-wrap;">${escapedProjectDetails}</p>
           </div>
           <footer style="margin-top: 20px; font-size: 12px; color: #666; text-align: center;">
             <p>Sent via YQ Web Studio 'Start a Project' Form</p>

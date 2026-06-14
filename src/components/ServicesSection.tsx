@@ -68,20 +68,27 @@ const TelemetryTypewriter = ({ text, skipAnimation = false, isActive = false }: 
   }, [isInView, text, skipAnimation, isActive]);
 
   return (
-    <div ref={ref} className="mt-2 min-h-[5rem]">
+    <div ref={ref} className="mt-2 min-h-[5rem] flex flex-col">
       <div className="text-[10px] font-mono text-primary mb-3 uppercase tracking-widest flex items-center gap-2">
         <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /> Live Feed
       </div>
-      <p className="text-sm text-muted-foreground font-mono leading-relaxed">
-        {displayedText}
-        {isActive && !skipAnimation && displayedText.length < text.length && (
-          <motion.span
-            animate={{ opacity: [1, 0] }}
-            transition={{ repeat: Infinity, duration: 0.8 }}
-            className="inline-block w-1.5 h-3.5 ml-1 bg-primary align-middle"
-          />
-        )}
-      </p>
+      <div className="relative flex-grow">
+        {/* Invisible placeholder to reserve layout height/wrap */}
+        <p className="text-sm font-mono leading-relaxed opacity-0 pointer-events-none select-none">
+          {"Can include: " + text.replace("Can include: ", "")}
+        </p>
+        {/* Absolute overlay for the actual typing animation */}
+        <p className="absolute inset-0 text-sm text-muted-foreground font-mono leading-relaxed">
+          {displayedText}
+          {isActive && !skipAnimation && displayedText.length < text.length && (
+            <motion.span
+              animate={{ opacity: [1, 0] }}
+              transition={{ repeat: Infinity, duration: 0.8 }}
+              className="inline-block w-1.5 h-3.5 ml-1 bg-primary align-middle"
+            />
+          )}
+        </p>
+      </div>
     </div>
   );
 };

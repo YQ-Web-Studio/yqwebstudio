@@ -117,9 +117,9 @@ const Footer = () => {
                 YQ<span className="text-purple-500 animate-pulse duration-[3000ms]">.</span>
               </span>
               
-              {/* Monospaced spacious Web Studio slogan beneath */}
-              <span className="text-xs sm:text-sm font-mono uppercase tracking-[0.45em] text-zinc-400 mt-3 block pl-[0.45em]">
-                web studio
+              {/* Serif italic Web Studio slogan matching header style & color */}
+              <span className="text-xl sm:text-2xl font-serif italic font-normal text-gradient mt-2 block">
+                Web Studio
               </span>
             </motion.div>
           </div>

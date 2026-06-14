@@ -89,7 +89,8 @@ export const GlobalDecorations = () => {
         style={{
           x: orb1X,
           y: orb1Y,
-          background: "radial-gradient(circle, hsl(271 91% 65% / 0.20) 0%, hsl(262 80% 50% / 0.05) 50%, transparent 70%)"
+          background: "radial-gradient(circle, hsl(271 91% 65% / 0.20) 0%, hsl(262 80% 50% / 0.05) 50%, transparent 70%)",
+          willChange: "transform"
         }}
       />
 
@@ -99,7 +100,8 @@ export const GlobalDecorations = () => {
         style={{
           x: orb2X,
           y: orb2Y,
-          background: "radial-gradient(circle, hsl(292 84% 61% / 0.16) 0%, hsl(310 80% 50% / 0.03) 50%, transparent 70%)"
+          background: "radial-gradient(circle, hsl(292 84% 61% / 0.16) 0%, hsl(310 80% 50% / 0.03) 50%, transparent 70%)",
+          willChange: "transform"
         }}
       />
 
@@ -109,7 +111,8 @@ export const GlobalDecorations = () => {
         style={{
           x: orb3X,
           y: orb3Y,
-          background: "radial-gradient(circle, hsl(280 85% 60% / 0.12) 0%, transparent 70%)"
+          background: "radial-gradient(circle, hsl(280 85% 60% / 0.12) 0%, transparent 70%)",
+          willChange: "transform"
         }}
       />
     </div>

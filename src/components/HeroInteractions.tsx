@@ -56,9 +56,10 @@ export const HeroButtons = () => {
   const { openContact } = useContact();
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.4, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      style={{ willChange: "transform" }}
       className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 pb-20 pointer-events-auto"
     >
       <MagneticButton

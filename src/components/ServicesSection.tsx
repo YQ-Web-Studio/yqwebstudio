@@ -13,9 +13,9 @@ const services = [
     icon: Code,
     title: "Bespoke Web Design",
     features: [
-      "custom integrations",
+      "Custom integrations",
       "Next.js-powered architecture",
-      "fully responsive layouts",
+      "Fully responsive layouts",
       "SEO & speed tuneups",
       "CMS dashboards",
     ],
@@ -26,11 +26,11 @@ const services = [
     icon: Shield,
     title: "The Website Care Plan",
     features: [
-      "premium managed hosting",
+      "Premium managed hosting",
       "SSL certificate & setup",
-      "monthly content updates",
-      "performance monitoring",
-      "priority support",
+      "Monthly content updates",
+      "Performance monitoring",
+      "Priority support",
     ],
     price: "from £10 / month",
     highlight: true,
@@ -75,7 +75,7 @@ const TelemetryTypewriter = ({ text, skipAnimation = false, isActive = false }: 
       <div className="relative flex-grow">
         {/* Invisible placeholder to reserve layout height/wrap */}
         <p className="text-sm font-mono leading-relaxed opacity-0 pointer-events-none select-none">
-          {"Can include: " + text.replace("Can include: ", "")}
+          {text}
         </p>
         {/* Absolute overlay for the actual typing animation */}
         <p className="absolute inset-0 text-sm text-muted-foreground font-mono leading-relaxed">
@@ -101,7 +101,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
           <service.icon className="w-8 h-8 text-primary mb-6" />
           <h3 className="text-2xl font-bold tracking-tight text-foreground mb-4 font-unbounded">{service.title}</h3>
           <div className="flex-grow">
-            <TelemetryTypewriter text={"Can include: " + service.features.join(" // ")} isActive={true} />
+            <TelemetryTypewriter text={service.features.join(" // ")} isActive={true} />
           </div>
         </div>
         <div className="mt-8 border-t border-border/50 pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -223,7 +223,7 @@ const ServicesSection = () => {
                         </h3>
                         <div className="flex-grow">
                           <TelemetryTypewriter 
-                            text={"Can include: " + service.features.join(" // ")} 
+                            text={service.features.join(" // ")} 
                             isActive={isFront}
                             skipAnimation={hasBeenTyped}
                           />

@@ -34,8 +34,13 @@ const TelemetryTypewriter = ({ text }: { text: string }) => {
   }, [isInView, text]);
 
   return (
-    <div ref={ref} className="min-h-[5rem]">
-      <p className="text-zinc-400 font-mono text-sm leading-relaxed max-w-lg">
+    <div ref={ref} className="relative min-h-[5rem]">
+      {/* Invisible placeholder to reserve layout height/wrap */}
+      <p className="text-sm font-mono leading-relaxed max-w-lg opacity-0 pointer-events-none select-none">
+        {text}
+      </p>
+      {/* Absolute overlay for the actual typing animation */}
+      <p className="absolute inset-0 text-zinc-400 font-mono text-sm leading-relaxed max-w-lg">
         {displayedText}
         <motion.span 
           animate={{ opacity: [1, 0] }} 

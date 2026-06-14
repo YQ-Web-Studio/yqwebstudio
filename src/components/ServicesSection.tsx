@@ -63,7 +63,7 @@ const TelemetryTypewriter = ({ text, skipAnimation = false, isActive = false }: 
       } else {
         clearInterval(interval);
       }
-    }, 12);
+    }, 30);
     return () => clearInterval(interval);
   }, [isInView, text, skipAnimation, isActive]);
 

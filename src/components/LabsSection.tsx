@@ -41,7 +41,7 @@ const TelemetryTypewriter = ({ text, onComplete }: { text: string; onComplete?: 
           onComplete();
         }
       }
-    }, 12);
+    }, 30);
     return () => clearInterval(interval);
   }, [isInView, text, onComplete]);
 
@@ -158,7 +158,7 @@ const LabsSection = () => {
                 onMouseMove={handleMouseMove}
                 animate={{ y: [0, -20, 0], rotateX: [5, -5, 5], rotateY: [-10, 10, -10] }}
                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                style={{ transformStyle: "preserve-3d" }}
+                style={{ transformStyle: "preserve-3d", willChange: "transform" }}
               >
                 <motion.div
                   className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 z-0 rounded-[3rem] overflow-hidden"
@@ -183,8 +183,8 @@ const LabsSection = () => {
                   style={{ transformStyle: "preserve-3d" }}
                 >
                   <motion.div 
-                    initial={{ filter: 'brightness(0) blur(10px)', scale: 1.05 }}
-                    whileInView={{ filter: 'brightness(1) blur(0px)', scale: 1 }}
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, amount: 0.8 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                     className="relative w-full h-full"
@@ -231,7 +231,7 @@ const LabsSection = () => {
                   visible: {
                     opacity: 1,
                     transition: {
-                      staggerChildren: 0.45
+                      staggerChildren: 0.12
                     }
                   }
                 }}
@@ -241,8 +241,8 @@ const LabsSection = () => {
                   <motion.div
                     key={f.title}
                     variants={{
-                      hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
-                      visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
                     }}
                     className="text-sm text-muted-foreground flex items-start gap-2.5 leading-relaxed p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 backdrop-blur-md shadow-md md:bg-transparent md:border-transparent md:backdrop-blur-none md:p-0 md:shadow-none"
                   >

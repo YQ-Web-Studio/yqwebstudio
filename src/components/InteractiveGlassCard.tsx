@@ -99,14 +99,15 @@ export const InteractiveGlassCard = ({ children, className, delay = 0, disableTi
         onPointerDown={handlePointerDown}
         onFocus={() => { if (!disableTilt) setIsFocused(true); mouseOpacity.set(1); }}
         onBlur={() => { setIsFocused(false); mouseOpacity.set(0); }}
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
         style={{ 
           rotateX: disableTilt ? 0 : rotateX, 
           rotateY: disableTilt ? 0 : rotateY, 
-          transformStyle: disableTilt ? "flat" : "preserve-3d" 
+          transformStyle: disableTilt ? "flat" : "preserve-3d",
+          willChange: "transform"
         }}
         className={cn(
           "relative overflow-hidden bg-zinc-950/80 backdrop-blur-md border rounded-3xl transition-colors duration-300 group",

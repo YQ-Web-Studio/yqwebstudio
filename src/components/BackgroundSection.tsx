@@ -29,7 +29,7 @@ const TelemetryTypewriter = ({ text }: { text: string }) => {
       } else {
         clearInterval(interval);
       }
-    }, 12);
+    }, 30);
     return () => clearInterval(interval);
   }, [isInView, text]);
 
@@ -130,10 +130,10 @@ const iconMap: Record<string, React.ReactNode> = {
 
 const Pill = ({ label, index }: { label: string; index: number }) => (
   <motion.span
-    initial={{ opacity: 0, y: 10 }}
+    initial={{ opacity: 0, y: 6 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.1 }}
-    transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+    transition={{ duration: 0.3, delay: index * 0.015, ease: [0.16, 1, 0.3, 1] }}
     whileHover={{ y: -2 }}
     className="inline-flex items-center gap-1.5 cursor-default rounded-full bg-zinc-900/40 border border-zinc-800/50 text-zinc-300 text-sm px-3 py-1 hover:border-purple-600/50 hover:text-white transition-colors duration-200"
   >
@@ -202,13 +202,13 @@ const BackgroundSection = () => {
       {/* Moved back to section-level absolute to prevent "box" clipping and restore seamless blending */}
       <motion.div 
         key={isMobile ? "mobile-portrait" : "desktop-portrait"}
-        style={{ y: parallaxY, willChange: "filter, transform" }} 
+        style={{ y: parallaxY, willChange: "transform" }} 
         className="absolute top-18 md:top-36 left-0 w-full md:w-[60%] lg:w-[50%] h-[400px] md:h-[600px] z-0 cursor-pointer group pointer-events-auto"
         variants={isMobile ? portraitVariants : {}}
-        initial={isMobile ? "grayscale" : { opacity: 0, filter: "blur(16px)", scale: 1.05 }}
-        whileInView={isMobile ? "colorize" : { opacity: 1, filter: "blur(0px)", scale: 1 }}
+        initial={isMobile ? "grayscale" : { opacity: 0, scale: 1.02 }}
+        whileInView={isMobile ? "colorize" : { opacity: 1, scale: 1 }}
         viewport={isMobile ? { once: false, amount: 0.7, margin: "0px 0px -10% 0px" } : { once: true, amount: 0.1 }}
-        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <Image
           src="/profile.png"

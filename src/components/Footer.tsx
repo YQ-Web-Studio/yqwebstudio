@@ -61,10 +61,10 @@ const Footer = () => {
   return (
     <motion.footer
       id="footer"
-      initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="pt-8 pb-32 md:py-24 border-t border-border/50 bg-zinc-950 relative z-10"
     >
       <div className="container mx-auto max-w-7xl px-6">
@@ -106,10 +106,10 @@ const Footer = () => {
           {/* Right Column: Premium YQ. Web Studio Brandmark */}
           <div className="flex flex-col items-center justify-center md:items-end pt-8 md:pt-0">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, filter: "blur(8px)" }}
-              whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
               className="flex flex-col items-center pointer-events-none select-none md:-mr-4"
             >
               {/* Signature YQ. Mark */}

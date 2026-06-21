@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useContact } from "@/context/ContactContext";
 import { useRef } from "react";
 import Link from "next/link";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Instagram, Linkedin } from "lucide-react";
 
 const MagneticFooterButton = ({ onClick, children }: { onClick: () => void, children: React.ReactNode }) => {
   const ref = useRef<HTMLButtonElement>(null);
@@ -138,6 +138,15 @@ const Footer = () => {
             >
               <Github size={14} />
               <span>GitHub</span>
+            </a>
+            <a 
+              href="https://www.instagram.com/yqwebstudio/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-sm text-muted-foreground hover:text-white transition-colors flex items-center gap-1.5"
+            >
+              <Instagram size={14} />
+              <span>Instagram</span>
             </a>
             <a 
               href="https://www.linkedin.com/company/yqwebstudio/" 

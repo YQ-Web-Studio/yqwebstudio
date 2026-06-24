@@ -119,10 +119,10 @@ const LabsSection = () => {
   `;
 
   return (
-    <section id="in-development" className="pt-16 pb-0 md:py-24 bg-zinc-950 relative overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(147,51,234,0.08)_0%,transparent_50%)]">
+    <section id="in-development" className="pt-16 pb-0 md:py-24 bg-zinc-950 relative overflow-hidden md:bg-[radial-gradient(circle_at_top_left,rgba(147,51,234,0.08)_0%,transparent_50%)]">
       {/* Ambient Background Gradient Orbs */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-purple-600/10 blur-[130px] pointer-events-none -ml-48 -mt-48 z-0" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none -mr-48 -mb-48 z-0" />
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-purple-600/10 blur-[130px] pointer-events-none -ml-48 -mt-48 z-0 hidden md:block" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none -mr-48 -mb-48 z-0 hidden md:block" />
 
       <div className="container mx-auto max-w-7xl px-6 mb-12 relative z-10">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
@@ -134,7 +134,7 @@ const LabsSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow font-syne"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow font-syne"
           >
             In Development.
           </motion.h2>
@@ -272,22 +272,22 @@ const LabsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 flex flex-wrap gap-3"
+                className="mt-8 flex flex-wrap gap-2"
               >
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
-                  <SiReact className="w-3.5 h-3.5 shrink-0" style={{ color: "#61DAFB" }} /> React Native
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-900/50 border border-zinc-800 text-[11px] font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
+                  <SiReact className="w-3 h-3 shrink-0" style={{ color: "#61DAFB" }} /> React Native
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
-                  <SiNextdotjs className="w-3.5 h-3.5 shrink-0" style={{ color: "#ffffff" }} /> Next.js
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-900/50 border border-zinc-800 text-[11px] font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
+                  <SiNextdotjs className="w-3 h-3 shrink-0" style={{ color: "#ffffff" }} /> Next.js
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
-                  <SiTailwindcss className="w-3.5 h-3.5 shrink-0" style={{ color: "#06B6D4" }} /> Tailwind CSS
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-900/50 border border-zinc-800 text-[11px] font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
+                  <SiTailwindcss className="w-3 h-3 shrink-0" style={{ color: "#06B6D4" }} /> Tailwind CSS
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
-                  <SiFirebase className="w-3.5 h-3.5 shrink-0" style={{ color: "#FFCA28" }} /> Firebase
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-900/50 border border-zinc-800 text-[11px] font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
+                  <SiFirebase className="w-3 h-3 shrink-0" style={{ color: "#FFCA28" }} /> Firebase
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
-                  <SiGooglemaps className="w-3.5 h-3.5 shrink-0" style={{ color: "#4285F4" }} /> Google Maps API
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-900/50 border border-zinc-800 text-[11px] font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
+                  <SiGooglemaps className="w-3 h-3 shrink-0" style={{ color: "#4285F4" }} /> Google Maps API
                 </div>
               </motion.div>
 
@@ -296,7 +296,7 @@ const LabsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4"
+                className="mt-8 flex items-center gap-4 flex-wrap"
               >
                 <div className="flex justify-start">
                   <MagneticLinkButton

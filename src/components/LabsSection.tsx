@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useInView, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion, useInView, useMotionTemplate, useMotionValue, AnimatePresence } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
-import { SiReact, SiFirebase, SiGooglemaps } from "react-icons/si";
-import { Layers, Github } from "lucide-react";
+import { SiReact, SiFirebase, SiGooglemaps, SiNextdotjs, SiTailwindcss } from "react-icons/si";
+import { Layers, Github, Globe } from "lucide-react";
 
 const features = [
   {
@@ -84,19 +84,24 @@ const MagneticLinkButton = ({ children, href, className }: { children: React.Rea
   );
 };
 
+const screenshots = [
+  "/images/muslim-atlas/home-page.png",
+  "/images/muslim-atlas/mosque-map.png",
+  "/images/muslim-atlas/mosque-info.png",
+  "/images/muslim-atlas/food-map.png",
+  "/images/muslim-atlas/food-info.png"
+];
+
 const LabsSection = () => {
-  const [isIntroComplete, setIsIntroComplete] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [currentScreenshotIndex, setCurrentScreenshotIndex] = useState(0);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const timer = setInterval(() => {
+      setCurrentScreenshotIndex((prev) => (prev + 1) % screenshots.length);
+    }, 3000);
+    return () => clearInterval(timer);
   }, []);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
@@ -114,8 +119,12 @@ const LabsSection = () => {
   `;
 
   return (
-    <section id="in-development" className="pt-16 pb-0 md:py-24 bg-zinc-950">
-      <div className="container mx-auto max-w-7xl px-6 mb-12">
+    <section id="in-development" className="pt-16 pb-0 md:py-24 bg-zinc-950 relative overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(147,51,234,0.08)_0%,transparent_50%)]">
+      {/* Ambient Background Gradient Orbs */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-purple-600/10 blur-[130px] pointer-events-none -ml-48 -mt-48 z-0" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none -mr-48 -mb-48 z-0" />
+
+      <div className="container mx-auto max-w-7xl px-6 mb-12 relative z-10">
         <p className="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
           04 // Current Engineering
         </p>
@@ -186,24 +195,33 @@ const LabsSection = () => {
                   whileInView={{ backgroundColor: "#ffffff" }}
                   viewport={{ once: true, amount: 0.8 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                  className="w-full h-full rounded-[2.5rem] overflow-hidden relative border border-zinc-900/50 pt-8 pb-6 bg-black"
+                  className="w-full h-full rounded-[2.5rem] overflow-hidden relative border border-zinc-900/50 bg-black"
                   style={{ transformStyle: "preserve-3d" }}
                 >
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 1.05 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, amount: 0.8 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    className="relative w-full h-full"
-                  >
-                    <Image
-                      src="/mosquemap-screenshot.png"
-                      alt="Muslim Atlas App Screenshot"
-                      fill
-                      className="object-cover object-top"
-                      sizes="220px"
-                    />
-                  </motion.div>
+                  <div className="relative w-full h-full overflow-hidden rounded-[2.2rem]">
+                    {screenshots.map((src, index) => (
+                      <motion.div
+                        key={src}
+                        initial={{ opacity: index === 0 ? 1 : 0 }}
+                        animate={{ opacity: index === currentScreenshotIndex ? 1 : 0 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        className="absolute w-full h-[calc(100%+24px)] -top-6 left-0"
+                        style={{
+                          pointerEvents: index === currentScreenshotIndex ? "auto" : "none",
+                          zIndex: index === currentScreenshotIndex ? 10 : 0
+                        }}
+                      >
+                        <Image
+                          src={src}
+                          alt={`Muslim Atlas App Screenshot ${index + 1}`}
+                          fill
+                          className="object-cover object-top"
+                          sizes="220px"
+                          priority={index === 0}
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
                   
                   {/* Glass Glare Sweep */}
                   <motion.div
@@ -222,54 +240,48 @@ const LabsSection = () => {
 
             {/* Content */}
             <div className="flex flex-col justify-center">
-              <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4 font-unbounded">
-                Muslim Atlas Mobile App
-              </h3>
-               <TelemetryTypewriter 
-                text="A premium, comprehensive lifestyle app designed for the Muslim community. Beyond core essentials like a full digital Quran and dynamic prayer tracking, the app features a community-driven map to instantly locate unlisted mosques and find verified halal food." 
-                onComplete={() => setIsIntroComplete(true)}
-              />
+              <div className="flex items-center gap-4 mb-6">
+                <div className="relative w-14 h-14 rounded-2xl overflow-hidden shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.4)] border border-zinc-800/30">
+                  <Image
+                    src="/images/muslim-atlas/logo.png"
+                    alt="Muslim Atlas Logo"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground font-unbounded">
+                    Muslim Atlas
+                  </h3>
+                  <p className="text-[10px] font-mono text-primary uppercase tracking-widest mt-1">Mobile App</p>
+                </div>
+              </div>
 
-              <motion.div 
-                initial="hidden"
-                animate={(isMobile || isIntroComplete) ? "visible" : "hidden"}
-                variants={{
-                  hidden: { opacity: 0 },
-                  visible: {
-                    opacity: 1,
-                    transition: {
-                      staggerChildren: 0.12
-                    }
-                  }
-                }}
-                className="space-y-4 mt-8"
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-sm text-muted-foreground font-mono leading-relaxed"
               >
-                {features.map((f) => (
-                  <motion.div
-                    key={f.title}
-                    variants={{
-                      hidden: { opacity: 0, y: 10 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
-                    }}
-                    className="text-sm text-muted-foreground flex items-start gap-2.5 leading-relaxed p-4 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 backdrop-blur-md shadow-md md:bg-transparent md:border-transparent md:backdrop-blur-none md:p-0 md:shadow-none"
-                  >
-                    <span className="text-primary mt-1 shrink-0">✦</span>
-                    <div>
-                      <strong className="text-zinc-100 font-semibold">{f.title}:</strong>{" "}
-                      {f.description}
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
+                A premium, comprehensive lifestyle app designed for the Muslim community. Beyond core essentials like a full digital Quran and dynamic prayer tracking, the app features a community-driven map to instantly locate mosques and find verified halal food. Learn more and download the app at muslimatlas.app.
+              </motion.p>
 
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
-                animate={(isMobile || isIntroComplete) ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                transition={{ duration: 0.8, delay: isMobile ? 0.3 : 1.2, ease: [0.16, 1, 0.3, 1] }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-8 flex flex-wrap gap-3"
               >
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
                   <SiReact className="w-3.5 h-3.5 shrink-0" style={{ color: "#61DAFB" }} /> React Native
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
+                  <SiNextdotjs className="w-3.5 h-3.5 shrink-0" style={{ color: "#ffffff" }} /> Next.js
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
+                  <SiTailwindcss className="w-3.5 h-3.5 shrink-0" style={{ color: "#06B6D4" }} /> Tailwind CSS
                 </div>
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
                   <SiFirebase className="w-3.5 h-3.5 shrink-0" style={{ color: "#FFCA28" }} /> Firebase
@@ -277,24 +289,28 @@ const LabsSection = () => {
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
                   <SiGooglemaps className="w-3.5 h-3.5 shrink-0" style={{ color: "#4285F4" }} /> Google Maps API
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-colors cursor-default">
-                  <Layers className="w-3.5 h-3.5 shrink-0" style={{ color: "#a78bfa" }} /> State Management
-                </div>
               </motion.div>
 
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
-                animate={(isMobile || isIntroComplete) ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                transition={{ duration: 0.8, delay: isMobile ? 0.4 : 1.4, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 flex justify-start"
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4"
               >
-                <MagneticLinkButton
-                  href="https://github.com/YusufQuresh1/Muslim-Atlas"
-                  className="inline-flex items-center justify-center gap-2 text-xs md:text-sm font-bold text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-6 py-3 rounded-[2rem] transition-colors"
-                >
-                  <Github size={16} className="group-hover:rotate-12 transition-transform" />
-                  <span>View Repository</span>
-                </MagneticLinkButton>
+                <div className="flex justify-start">
+                  <MagneticLinkButton
+                    href="https://www.muslimatlas.app/"
+                    className="inline-flex items-center justify-center gap-2 text-xs md:text-sm font-bold text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-6 py-3 rounded-[2rem] transition-colors"
+                  >
+                    <Globe size={16} className="group-hover:rotate-12 transition-transform" />
+                    <span>Visit Website</span>
+                  </MagneticLinkButton>
+                </div>
+
+                <span className="text-xs text-muted-foreground/60 font-mono italic">
+                  ✦ website designed & built by YQ Web Studio 😉
+                </span>
               </motion.div>
             </div>
           </div>

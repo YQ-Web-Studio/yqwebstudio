@@ -140,9 +140,13 @@ const Pill = ({ label, index }: { label: string; index: number }) => (
     viewport={{ once: true, amount: 0.1 }}
     transition={{ duration: 0.3, delay: index * 0.015, ease: [0.16, 1, 0.3, 1] }}
     whileHover={{ y: -2 }}
-    className="inline-flex items-center gap-1.5 cursor-default rounded-full bg-zinc-900/40 border border-zinc-800/50 text-zinc-300 text-sm px-3 py-1 hover:border-purple-600/50 hover:text-white transition-colors duration-200"
+    className="inline-flex items-center gap-1 sm:gap-1.5 cursor-default rounded-full bg-zinc-900/40 border border-zinc-800/50 text-zinc-300 text-[11px] sm:text-sm px-2 py-0.5 sm:px-3 sm:py-1 hover:border-purple-600/50 hover:text-white transition-colors duration-200"
   >
-    {iconMap[label] ?? null}
+    {iconMap[label] ? (
+      <span className="[&>svg]:w-3 [&>svg]:h-3 sm:[&>svg]:w-3.5 sm:[&>svg]:h-3.5 flex items-center shrink-0">
+        {iconMap[label]}
+      </span>
+    ) : null}
     {label}
   </motion.span>
 );

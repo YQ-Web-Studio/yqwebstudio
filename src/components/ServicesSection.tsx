@@ -158,7 +158,7 @@ const ServicesSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow font-syne"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow font-syne"
           >
             Built for Growth.
           </motion.h2>

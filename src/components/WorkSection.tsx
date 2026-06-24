@@ -188,7 +188,7 @@ const WorkSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow font-syne"
+          className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-50 heading-glow font-syne"
         >
           Case Studies.
         </motion.h2>
@@ -346,9 +346,13 @@ const WorkSection = () => {
               {activeProject.stack.map((tech) => (
                 <div
                   key={tech}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-zinc-900/50 border border-zinc-800 text-[11px] font-semibold text-zinc-300"
+                  className="flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-zinc-900/50 border border-zinc-800 text-[10px] sm:text-[11px] font-semibold text-zinc-300"
                 >
-                  {stackIconMap[tech] ?? <Globe className="w-3 h-3" />}
+                  {stackIconMap[tech] ? (
+                    <span className="[&>svg]:w-3 [&>svg]:h-3 sm:[&>svg]:w-3.5 sm:[&>svg]:h-3.5 flex items-center shrink-0">
+                      {stackIconMap[tech]}
+                    </span>
+                  ) : <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
                   {tech}
                 </div>
               ))}
@@ -483,9 +487,13 @@ const WorkSection = () => {
                     {activeProject.stack.map((tech) => (
                       <div
                         key={tech}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900/50 border border-zinc-800 text-xs font-semibold text-zinc-300 hover:text-zinc-100 hover:border-zinc-700 transition-colors cursor-default"
+                        className="flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-900/50 border border-zinc-800 text-[10px] sm:text-xs font-semibold text-zinc-300 hover:text-zinc-100 hover:border-zinc-700 transition-colors cursor-default"
                       >
-                        {stackIconMap[tech] ?? <Globe className="w-3.5 h-3.5" />}
+                        {stackIconMap[tech] ? (
+                          <span className="[&>svg]:w-3 [&>svg]:h-3 sm:[&>svg]:w-3.5 sm:[&>svg]:h-3.5 flex items-center shrink-0">
+                            {stackIconMap[tech]}
+                          </span>
+                        ) : <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
                         {tech}
                       </div>
                     ))}

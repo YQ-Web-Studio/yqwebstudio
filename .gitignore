@@ -1,28 +1,52 @@
-# Logs
-logs
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment Variables & Secrets (CRITICAL SECURITY GATE)
+.env*
+!.env.example
+*.key
+*.pem
+*.cert
+*.pfx
+*.pkcs12
+*.sst
+
+# Next.js Build & Cache (CRITICAL: NEVER COMMIT BUILD / TURBOPACK CACHE)
+.next/
+**/.next/**
+out/
+build/
+dist/
+dist-ssr/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+
+# Logs & Debugging
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+build.log
+build_log.txt
 
-node_modules
-dist
-dist-ssr
-*.local
+# Testing & Coverage
+coverage/
+playwright-report/
+test-results/
 
-# Editor directories and files
+# OS & Editor Metadata
+.DS_Store
+Thumbs.db
+.idea/
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-# next.js
-/.next/
-/out/
